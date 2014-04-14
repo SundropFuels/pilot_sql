@@ -2,13 +2,13 @@ CREATE DATABASE IF NOT EXISTS pilot_run_db;
 
 USE pilot_run_db;
 
-----------------------
---CREATE LV DATA TBL--
-----------------------
+-- ------------------ --
+-- CREATE LV DATA TBL --
+-- ------------------ --
 DROP TABLE IF EXISTS lv_data_tbl;
 
 CREATE TABLE IF NOT EXISTS pilot_run_db.lv_data_tbl(
-  ts TIMESTAMP,
+  ts DATETIME NOT NULL,
   AG_1407_FAULT TINYINT(1),
   AG_1407_OP DOUBLE,
   AI_922021 DOUBLE,
@@ -214,13 +214,13 @@ CREATE TABLE IF NOT EXISTS pilot_run_db.lv_data_tbl(
   ZSO_983013 TINYINT(1)
 );
 
-----------------------
---CREATE MS DATA TBL--
-----------------------
+-- ------------------ --
+-- CREATE MS DATA TBL --
+-- ------------------ --
 DROP TABLE IF EXISTS ms_data_tbl;
 
 CREATE  TABLE IF NOT EXISTS pilot_run_db.ms_data_tbl (
-  ts TIMESTAMP NOT NULL,
+  ts DATETIME NOT NULL,
   N2_MS     DOUBLE,
   Ar_MS     DOUBLE,
   H2_MS     DOUBLE,
@@ -238,14 +238,14 @@ CREATE  TABLE IF NOT EXISTS pilot_run_db.ms_data_tbl (
   PRIMARY KEY (ts)
 );
 
-----------------------
---CREATE GC DATA TBL--
-----------------------
+-- ------------------ --
+-- CREATE GC DATA TBL --
+-- ------------------ --
 DROP TABLE IF EXISTS gc_data_tbl;
 
------------------------
---CREATE GLOSSARY TBL--
------------------------
+-- ------------------- --
+-- CREATE GLOSSARY TBL --
+-- ------------------- --
 DROP TABLE IF EXISTS glossary_tbl;
 
 CREATE  TABLE IF NOT EXISTS pilot_run_db.glossary_tbl (
@@ -253,7 +253,7 @@ CREATE  TABLE IF NOT EXISTS pilot_run_db.glossary_tbl (
   simple_name   VARCHAR(90),
   description   VARCHAR(90),
   units         VARCHAR(10),
-  tag_log       TINYINT(1) NOT NULL DEFAULT 0,
+  log_status    TINYINT(1) NOT NULL DEFAULT 0,
   pid_sheet     VARCHAR(45),
   PRIMARY KEY (tag_name),
   UNIQUE INDEX `tag_name_UNIQUE` (`tag_name` ASC) ,
@@ -261,9 +261,9 @@ CREATE  TABLE IF NOT EXISTS pilot_run_db.glossary_tbl (
 );
 
 INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units, log_status, pid_sheet)
-  VALUES ('AG_1407_FAULT', 'fault_roto_feed', 'Roto_feed fault signal', 'boolean', 0, 9005);
+  VALUES ('AG_1407_FAULT', 'fault_roto_feed', 'Roto-feed fault signal', 'boolean', 0, 9005);
 INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units, log_status, pid_sheet)
-  VALUES ('AG_1407_OP', 'roto_feed_op', 'Roto_feed percentage speed output', 'percent', 0, 9005);
+  VALUES ('AG_1407_OP', 'roto_feed_op', 'Roto-feed percentage speed output', 'percent', 0, 9005);
 INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units, log_status, pid_sheet)
   VALUES ('AI_922021', 'ai_lock_hopper_purge', 'Lock hopper purge O2', 'nan', 0, 9005);
 INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units, log_status, pid_sheet)
@@ -283,13 +283,13 @@ INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units
 INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units, log_status, pid_sheet)
   VALUES ('DPI_932071', 'dp_ako_ambient', 'Ash KO/ambient DP', 'psi', 0, 9008);
 INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units, log_status, pid_sheet)
-  VALUES ('DPI_932302', 'dp_bag_purge', 'Purge gas filter cross_bag DP', 'psi', 0, 9009);
+  VALUES ('DPI_932302', 'dp_bag_purge', 'Purge gas filter cross-bag DP', 'psi', 0, 9009);
 INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units, log_status, pid_sheet)
   VALUES ('DPI_936014', 'dp_quench_candle_hopper', 'Quench/candle filter hopper DP', 'psi', 0, 9009);
 INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units, log_status, pid_sheet)
   VALUES ('DPI_936015', 'dp_candle_ko_ambient', 'Candle filter KO/ambient DP', 'psi', 0, 9009);
 INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units, log_status, pid_sheet)
-  VALUES ('DPIT_922007', 'dp_1403_1402', 'U_1403/V_1402 differential pressure', 'psi', 0, 9003);
+  VALUES ('DPIT_922007', 'dp_1403_1402', 'U-1403/V-1402 differential pressure', 'psi', 0, 9003);
 INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units, log_status)
   VALUES ('E_STOP', 'e_stop', 'nan', 'boolean', 1);
 INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units, log_status, pid_sheet)
@@ -327,19 +327,19 @@ INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units
 INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units, log_status, pid_sheet)
   VALUES ('FIC_990014_SP', 'mass_flow_argon_sp', 'Argon mass flow controller setpoint', 'nan', 1, 9007);
 INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units, log_status, pid_sheet)
-  VALUES ('HS_932018', 'valve_ako_inlet_actuator', 'Ash KO inlet Spheri_valve actuator', 'boolean', 0, 9008);
+  VALUES ('HS_932018', 'valve_ako_inlet_actuator', 'Ash KO inlet Spheri-valve actuator', 'boolean', 0, 9008);
 INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units, log_status, pid_sheet)
-  VALUES ('HS_932025', 'valve_ako_outlet_actuator', 'Ash KO outlet Spheri_valve actuator', 'boolean', 0, 9008);
+  VALUES ('HS_932025', 'valve_ako_outlet_actuator', 'Ash KO outlet Spheri-valve actuator', 'boolean', 0, 9008);
 INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units, log_status, pid_sheet)
   VALUES ('LCV_932024', 'valve_water_fill', 'Water tank 932T001A fill valve', 'boolean', 1, 9008);
 INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units, log_status, pid_sheet)
   VALUES ('LE_932004', 'level_water', 'Water tank 932T001A level', 'percent', 0, 9008);
 INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units, log_status, pid_sheet)
-  VALUES ('LSH_1405', 'switch_level_water_high', 'V_1406 high level switch', 'boolean', 1, 9005);
+  VALUES ('LSH_1405', 'switch_level_water_high', 'V-1406 high level switch', 'boolean', 1, 9005);
 INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units, log_status, pid_sheet)
   VALUES ('LSH_932021', 'switch_ako_level_high', 'Ash KO level switch high', 'boolean', 1, 9008);
 INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units, log_status, pid_sheet)
-  VALUES ('LSL_1406', 'switch_1406_low', 'V_1406 low level switch', 'boolean', 1, 9005);
+  VALUES ('LSL_1406', 'switch_1406_low', 'V-1406 low level switch', 'boolean', 1, 9005);
 INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units, log_status, pid_sheet)
   VALUES ('PC_983001', 'pressure_boiler_sp', 'Boiler pressure setpoint', 'psig', 1, 9006);
 INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units, log_status, pid_sheet)
@@ -351,7 +351,7 @@ INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units
 INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units, log_status, pid_sheet)
   VALUES ('PDI_1445', 'dp_lock_hopper_injector', 'Lock hopper/injector differential pressure', 'psi', 0, 9004);
 INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units, log_status, pid_sheet)
-  VALUES ('PI_1442', 'pressure_roto_feed_injector_inlet', 'Roto_feed injector inlet pressure', 'psig', 0, 9004);
+  VALUES ('PI_1442', 'pressure_roto_feed_injector_inlet', 'Roto-feed injector inlet pressure', 'psig', 0, 9004);
 INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units, log_status, pid_sheet)
   VALUES ('PI_1445', 'pressure_lock_hopper_supply', 'Lock hopper supply pressure', 'psig', 0, 9004);
 INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units, log_status, pid_sheet)
@@ -391,21 +391,21 @@ INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units
 INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units, log_status, pid_sheet)
   VALUES ('PIC_932030_SP', 'pressure_outlet_sp', 'Outlet pressure controller setpoint', 'psig', 1, 9009);
 INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units, log_status, pid_sheet)
-  VALUES ('PS_1404', 'switch_bladder_1404_inflation', 'XV_1404 bladder inflation verification', 'boolean', 0, 9005);
+  VALUES ('PS_1404', 'switch_bladder_1404_inflation', 'XV-1404 bladder inflation verification', 'boolean', 0, 9005);
 INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units, log_status, pid_sheet)
-  VALUES ('PS_1405', 'switch_bladder_1405_inflation', 'XV_1405 bladder inflation verification', 'boolean', 0, 9005);
+  VALUES ('PS_1405', 'switch_bladder_1405_inflation', 'XV-1405 bladder inflation verification', 'boolean', 0, 9005);
 INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units, log_status, pid_sheet)
-  VALUES ('PS_1406', 'switch_bladder_lower_inflation', 'Lower spheri_valve bladder inflation verification', 'boolean', 0, 9005);
+  VALUES ('PS_1406', 'switch_bladder_lower_inflation', 'Lower spheri-valve bladder inflation verification', 'boolean', 0, 9005);
 INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units, log_status, pid_sheet)
-  VALUES ('PS_932044', 'switch_bladder_purge_filter_inflation', 'Purge gas filter spheri_valve inflation verification', 'boolean', 0, 9009);
+  VALUES ('PS_932044', 'switch_bladder_purge_filter_inflation', 'Purge gas filter spheri-valve inflation verification', 'boolean', 0, 9009);
 INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units, log_status, pid_sheet)
   VALUES ('PSL_986611', 'switch_ms_containment_pressure_low', 'MS containment box pressure switch low', 'boolean', 0, 9016);
 INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units, log_status, pid_sheet)
   VALUES ('PSL_986902', 'switch_analyzer_containment_pressure_low', 'Analyzer containment box pressure switch low', 'boolean', 0, 9015);
 INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units, log_status, pid_sheet)
-  VALUES ('PT_1406', 'pressure_1405', 'V_1405 pressure', 'psig', 0, 9005);
+  VALUES ('PT_1406', 'pressure_1405', 'V-1405 pressure', 'psig', 0, 9005);
 INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units, log_status, pid_sheet)
-  VALUES ('PT_922008/PT_1450', 'pressure_roto_feed_exit', 'Pressure at exit of Roto_Feed', 'psig', 0, 9005);
+  VALUES ('PT_922008/PT_1450', 'pressure_roto_feed_exit', 'Pressure at exit of Roto-Feed', 'psig', 0, 9005);
 INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units, log_status, pid_sheet)
   VALUES ('TE_922022', 'temp_ako_relief', 'Ash KO relief valve line temperature', 'C', 0, 9008);
 INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units, log_status, pid_sheet)
@@ -465,11 +465,11 @@ INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units
 INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units, log_status, pid_sheet)
   VALUES ('TI_932017', 'temp_quench_pressure_relief_exit', 'Quench pressure relief exit temperature', 'C', 0, 9008);
 INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units, log_status, pid_sheet)
-  VALUES ('TI_932018', 'temp_quench_exit_valve_skin', 'Quench vessel exit Spheri_valve skin temperature', 'C', 0, 9008);
+  VALUES ('TI_932018', 'temp_quench_exit_valve_skin', 'Quench vessel exit Spheri-valve skin temperature', 'C', 0, 9008);
 INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units, log_status, pid_sheet)
-  VALUES ('TI_932023', 'temp_ako_outlet_valve_skin', 'Ash KO outlet Spheri_valve skin temperature', 'C', 0, 9008);
+  VALUES ('TI_932023', 'temp_ako_outlet_valve_skin', 'Ash KO outlet Spheri-valve skin temperature', 'C', 0, 9008);
 INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units, log_status, pid_sheet)
-  VALUES ('TI_932035', 'temp_coriolis_before', 'Pre_coriolis temperature', 'C', 0, 9009);
+  VALUES ('TI_932035', 'temp_coriolis_before', 'Pre-coriolis temperature', 'C', 0, 9009);
 INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units, log_status, pid_sheet)
   VALUES ('TI_932051', 'temp_tar_filter_exit', 'Tar ceramic filter exit temperature', 'C', 0, 9007);
 INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units, log_status, pid_sheet)
@@ -539,17 +539,17 @@ INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units
 INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units, log_status, pid_sheet)
   VALUES ('TY_983014_SP', 'temp_superheater_sp', 'Superheater temperature setpoint', 'C', 1, 9006);
 INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units, log_status, pid_sheet)
-  VALUES ('WIC_1402_PV', 'valve_feed_auger_pv', 'V_1402 feed auger process value', 'percent', 0, 9003);
+  VALUES ('WIC_1402_PV', 'valve_feed_auger_pv', 'V-1402 feed auger process value', 'percent', 0, 9003);
 INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units, log_status, pid_sheet)
   VALUES ('WIT_1406', 'mass_feed_vessel', 'Feed vessel weight', 'lb', 0, 9005);
 INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units, log_status, pid_sheet)
-  VALUES ('XV_1401', 'valve_feed_hopper_filter_purge', 'U_1403 (feed hopper) filter purge on/off solenoid', 'boolean', 1, 9003);
+  VALUES ('XV_1401', 'valve_feed_hopper_filter_purge', 'U-1403 (feed hopper) filter purge on/off solenoid', 'boolean', 1, 9003);
 INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units, log_status, pid_sheet)
-  VALUES ('XV_1404', 'valve_top_lock_inlet', 'Top lock vessel inlet Spheri_valve', 'boolean', 1, 9005);
+  VALUES ('XV_1404', 'valve_top_lock_inlet', 'Top lock vessel inlet Spheri-valve', 'boolean', 1, 9005);
 INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units, log_status, pid_sheet)
-  VALUES ('XV_1405', 'valve_inter_feed', 'Inter_feed vessel Spheri_valve', 'boolean', 1, 9005);
+  VALUES ('XV_1405', 'valve_inter_feed', 'Inter-feed vessel Spheri-valve', 'boolean', 1, 9005);
 INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units, log_status, pid_sheet)
-  VALUES ('XV_1406', 'valve_bottom_lock_outlet', 'Bottom lock vessel outlet Spheri_Valve', 'boolean', 1, 9005);
+  VALUES ('XV_1406', 'valve_bottom_lock_outlet', 'Bottom lock vessel outlet Spheri-Valve', 'boolean', 1, 9005);
 INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units, log_status, pid_sheet)
   VALUES ('XV_1421', 'valve_injector', 'CO2 to injector on/off solenoid (1/2/5)', 'boolean', 1, 9004);
 INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units, log_status, pid_sheet)
@@ -561,13 +561,13 @@ INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units
 INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units, log_status, pid_sheet)
   VALUES ('XV_1441', 'valve_injector_1', 'CO2 to injector on/off solenoid (supply 1) ', 'boolean', 1, 9004);
 INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units, log_status, pid_sheet)
-  VALUES ('XV_1443', 'valve_pressurization', 'V_1407 pressurization on/off valve', 'boolean', 1, 9005);
+  VALUES ('XV_1443', 'valve_pressurization', 'V-1407 pressurization on/off valve', 'boolean', 1, 9005);
 INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units, log_status, pid_sheet)
   VALUES ('XV_1444', 'valve_isolating_flex', 'Isolating flex pressurization', 'boolean', 1, 9005);
 INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units, log_status, pid_sheet)
   VALUES ('XV_1445', 'valve_supply_5', 'Biomass feed lock hopper (supply5) on/off solenoid', 'boolean', 1, 9004);
 INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units, log_status, pid_sheet)
-  VALUES ('XV_1447', 'valve_purge', 'V_1405 purge on/off valve', 'boolean', 1, 9005);
+  VALUES ('XV_1447', 'valve_purge', 'V-1405 purge on/off valve', 'boolean', 1, 9005);
 INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units, log_status, pid_sheet)
   VALUES ('XV_1448A', 'valve_purge_1', 'Lock hopper purge solenoid 1', 'boolean', 1, 9005);
 INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units, log_status, pid_sheet)
@@ -581,11 +581,11 @@ INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units
 INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units, log_status, pid_sheet)
   VALUES ('XV_1450', 'valve_feed_entrainment', 'Feed entrainment shutoff valve', 'boolean', 1, 9005);
 INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units, log_status, pid_sheet)
-  VALUES ('XV_922016', 'valve_biomass_inlet', 'Biomass inlet full port ball_valve', 'boolean', 1, 9007);
+  VALUES ('XV_922016', 'valve_biomass_inlet', 'Biomass inlet full port ball-valve', 'boolean', 1, 9007);
 INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units, log_status, pid_sheet)
-  VALUES ('XV_932018', 'valve_quench_exit', 'Quench vessel exit Spheri_valve', 'boolean', 1, 9008);
+  VALUES ('XV_932018', 'valve_quench_exit', 'Quench vessel exit Spheri-valve', 'boolean', 1, 9008);
 INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units, log_status, pid_sheet)
-  VALUES ('XV_932025', 'valve_ako_outlet', 'Ash KO outlet Spheri_valve ', 'boolean', 1, 9008);
+  VALUES ('XV_932025', 'valve_ako_outlet', 'Ash KO outlet Spheri-valve ', 'boolean', 1, 9008);
 INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units, log_status, pid_sheet)
   VALUES ('XV_932028', 'valve_oxidizer_purge', 'Thermal oxidizer purge N2 on/off solenoid', 'boolean', 1, 9009);
 INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units, log_status, pid_sheet)
@@ -665,9 +665,9 @@ INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units
 INSERT INTO pilot_run_db.glossary_tbl (tag_name, simple_name, description, units, log_status, pid_sheet)
   VALUES ('ZSO_983013', 'switch_steam_shutoff_open', 'Steam shutoff solenoid open position switch', 'boolean', 0, 9006);
 
--------------------------
---CREATE SYSTEM LOG TBL--
--------------------------
+-- --------------------- --
+-- CREATE SYSTEM LOG TBL --
+-- --------------------- --
 DROP TABLE IF EXISTS system_log_tbl;
 
 CREATE  TABLE IF NOT EXISTS pilot_run_db.system_log_tbl (
@@ -678,9 +678,9 @@ CREATE  TABLE IF NOT EXISTS pilot_run_db.system_log_tbl (
   PRIMARY KEY (ts, tag_name)
 );
 
----------------------------
---CREATE OPERATOR LOG TBL--
----------------------------
+-- ----------------------- --
+-- CREATE OPERATOR LOG TBL --
+-- ----------------------- --
 DROP TABLE IF EXISTS operator_log_tbl;
 
 CREATE  TABLE IF NOT EXISTS pilot_run_db.operator_log_tbl (
@@ -689,5 +689,4 @@ CREATE  TABLE IF NOT EXISTS pilot_run_db.operator_log_tbl (
   notes         TEXT NULL ,
   PRIMARY KEY (ts, operator)
 );
-
 
