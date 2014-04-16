@@ -2,10 +2,69 @@ CREATE DATABASE IF NOT EXISTS pilot_proc_db;
 
 USE pilot_proc_db;
 
+-- ------------------- --
+-- CREATE RUN INFO TBL --
+-- ------------------- --
+DROP TABLE IF EXISTS run_info_tbl;
+
+CREATE TABLE run_info_tbl
+(
+    run_id      INT PRIMARY KEY,
+    sample_id   INT,
+    setpoint_id INT,
+    ts_start    DATETIME,
+    ts_stop     DATETIME,
+    ss_start    DATETIME,
+    ss_stop     DATETIME,
+    operator    VARCHAR(45),
+    FOREIGN KEY (setpoint_id)
+        REFERENCES setpoint_tbl (setpoint_id)
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+);
+
+-- ------------------- --
+-- CREATE SETPOINT TBL --
+-- ------------------- --
+DROP TABLE IF EXISTS setpoint_tbl;
+
+CREATE TABLE setpoint_tbl
+(
+    setpoint_id     INT PRIMARY KEY,
+    temperature     DOUBLE,
+    pressure        DOUBLE,
+    biomass_rate    DOUBLE,
+    steam_flow      DOUBLE,
+    steam_temp      DOUBLE,
+    ent_CO2         DOUBLE,
+    feedstock       VARCHAR(45)
+);
+
+-- -------------------- --
+-- CREATE REANALYZE TBL --
+-- -------------------- --
+DROP TABLE IF EXISTS reanalyze_tbl;
+
+CREATE TABLE reanalyze_tbl
+(
+  run_id    INT PRIMARY KEY,
+  new_run   TINYINT(1),
+  reanalyze TINYINT(1),
+  FOREIGN KEY (run_id)
+        REFERENCES run_info_tbl (run_id)
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+); 
+
+-- ------------------- --
+-- CREATE INTEGRAL TBL --
+-- ------------------- --
+
 DROP TABLE IF EXISTS integral_tbl;
 
 CREATE TABLE integral_tbl
 (
+  run_id INT PRIMARY KEY,
   AG_1407_OP_avg DOUBLE,
   AG_1407_OP_std DOUBLE,
   AI_922021_avg DOUBLE,
@@ -350,7 +409,15 @@ CREATE TABLE integral_tbl
   C7H8_outlet_std DOUBLE,
   C10H8_outlet_avg DOUBLE,
   C10H8_outlet_std DOUBLE,
+  FOREIGN KEY (run_id)
+        REFERENCES run_info_tbl (run_id)
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
 );
+
+-- -------------------------- --
+-- CREATE ANALYSIS CONFIG TBL --
+-- -------------------------- --
 
 DROP TABLE IF EXISTS analysis_config_tbl;
 
@@ -533,3 +600,24 @@ CREATE TABLE analysis_config_tbl
   INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('C7H8_outlet', 1);
   INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('C10H8_outlet', 1);
 
+-- ---------------------- --
+-- CREATE REPORT PLOT TBL --
+-- ---------------------- --
+
+DROP TABLE IF EXISTS plot_tbl;
+
+CREATE TABLE plot_tbl
+(
+  plot_id INT PRIMARY KEY,
+  plot_type ENUM('time_series', 'time_series_ss', 'control', 'four'),
+  plot_title VARCHAR(45),
+  plot_caption VARCHAR(45),
+  x_variable VARCHAR(45),
+  x_label VARCHAR(45),
+  x_min FLOAT,
+  x_max FLOAT,
+  y_variable VARCHAR(45),
+  y_label VARCHAR(45),
+  y_min FLOAT,
+  y_max FLOAT
+);
