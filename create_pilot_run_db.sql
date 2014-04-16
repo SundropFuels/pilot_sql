@@ -223,6 +223,7 @@ CREATE  TABLE IF NOT EXISTS pilot_run_db.ms_data_tbl (
   ts DATETIME NOT NULL,
   N2_MS     DOUBLE,
   Ar_MS     DOUBLE,
+  H2O_MS    DOUBLE,
   H2_MS     DOUBLE,
   CO_MS     DOUBLE,
   CO2_MS    DOUBLE,
