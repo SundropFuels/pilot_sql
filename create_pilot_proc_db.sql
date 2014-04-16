@@ -621,3 +621,51 @@ CREATE TABLE plot_tbl
   y_min FLOAT,
   y_max FLOAT
 );
+
+-- --------------- --
+-- CREATE TRIGGERS --
+-- --------------- --
+
+DELIMITER $$
+
+-- Sets reanalyze and new run value for run to zero after integral tbl is updated
+DROP TRIGGER IF EXISTS after_integral_tbl_update
+CREATE TRIGGER after_integral_tbl_update AFTER UPDATE ON integral_tbl
+  FOR EACH ROW
+  BEGIN
+    IF NEW.analysis_ts != OLD.analysis_ts THEN
+        UPDATE pilot_reanalyze_tbl SET new_run = 0, reanalyze = 0 WHERE run_id = NEW.run_id;
+    END IF;
+END $$
+
+-- Sets reanalyze and new run value for run to zero after new run is insreted into integral tbl
+DROP TRIGGER IF EXISTS after_integral_tbl_insert
+CREATE TRIGGER after_integral_tbl_insert AFTER INSERT ON integral_tbl
+  FOR EACH ROW
+  BEGIN
+    UPDATE pilot_reanalyze_tbl SET new_run = 0, reanalyze = 0 WHERE run_id = NEW.run_id;
+END $$
+
+-- Sets reanalyze value to 1 when run info tbl is updated for certain columns.  Columns must be added manually to code...
+-- Also will set reanalyze value to 1 for new runs once all needed information is added to run info tbl
+DROP TRIGGER IF EXISTS after_run_info_tbl_update
+CREATE TRIGGER after_run_info_tbl_update AFTER UPDATE ON run_info_tbl
+  FOR EACH ROW
+  BEGIN
+    IF ((NEW.ss_start != OLD.ss_start OR (NEW.ss_start IS NOT NULL AND OLD.ss_start IS NULL))
+      OR (NEW.ss_stop != OLD.ss_stop OR (NEW.ss_stop IS NOT NULL AND OLD.ss_stop IS NULL))) 
+      AND (NEW.ss_start IS NOT NULL AND NEW.ss_stop IS NOT NULL) THEN
+                UPDATE pilot_reanalyze_tbl SET pilot_reanalyze_tbl.reanalyze = 1 
+                WHERE pilot_reanalyze_tbl.run_id = NEW.run_id;
+    END IF;
+END $$
+
+-- Sets value for new run to 1.  Leaves reanalyze value as 0, waits until needed information is put into run info tbl to mark for reanalysis.
+DROP TRIGGER IF EXISTS after_run_info_tbl_insert
+CREATE TRIGGER after_run_info_tbl_insert AFTER INSERT ON run_info_tbl
+  FOR EACH ROW
+  BEGIN
+    INSERT INTO pilot_reanalyze_tbl (run_id, new_run) VALUES (NEW.run_id, 1);
+END $$
+
+DELIMITER ;
