@@ -633,6 +633,16 @@ CREATE TABLE plot_tbl
   y_max FLOAT
 );
 
+-- ------------ --
+-- CREATE VIEWS --
+-- ------------ --
+DROP VIEW IF EXISTS run_plan_view;
+
+CREATE VIEW run_plan_view AS
+  SELECT run_id, sample_id, ts_start, ts_stop, ss_start, ss_stop, operator FROM run_info_tbl 
+  LEFT JOIN setpoint_tbl ON
+  run_info_tbl.setpoint_id = setpoint_tbl.setpoint_id;
+
 -- --------------- --
 -- CREATE TRIGGERS --
 -- --------------- --
@@ -680,3 +690,5 @@ CREATE TRIGGER after_run_info_tbl_insert AFTER INSERT ON run_info_tbl
 END $$
 
 DELIMITER ;
+
+
