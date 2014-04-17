@@ -244,6 +244,35 @@ CREATE  TABLE IF NOT EXISTS pilot_run_db.ms_data_tbl (
 -- ------------------ --
 DROP TABLE IF EXISTS gc_data_tbl;
 
+CREATE TABLE IF NOT EXISTS pilot_run_db.gc_data_tbl 
+(
+  ts                        DATETIME PRIMARY KEY,
+  benzene                   DOUBLE,
+  ethylbenzene              DOUBLE,
+  toluene                   DOUBLE,
+  m_xylene                  DOUBLE,
+  o_xylene                  DOUBLE,
+  p_xylene                  DOUBLE,
+  acenaphthene              DOUBLE,
+  acenapthylene             DOUBLE,
+  anthracene                DOUBLE,
+  benzo_a_anthracene        DOUBLE,
+  benzo_a_pyrene            DOUBLE,
+  benzo_b_fluoranthene      DOUBLE,
+  benzo_k_fluoranthene      DOUBLE,
+  chrysene                  DOUBLE,
+  dibenzo_a_h_anthracene    DOUBLE,
+  fluoranthene              DOUBLE,
+  fluorene                  DOUBLE,
+  indeno_1_2_3_cd_pyrene    DOUBLE,
+  napthalene                DOUBLE,
+  phenanthrene              DOUBLE,
+  pyrene                    DOUBLE,
+  styrene                   DOUBLE,
+  pyridine                  DOUBLE,
+  phenol                    DOUBLE
+);
+
 -- ------------------- --
 -- CREATE GLOSSARY TBL --
 -- ------------------- --
