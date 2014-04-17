@@ -1,0 +1,212 @@
+Tag,Sheet,Simple name,Log Status,Description,SQL type,Units,Included,Verified 2013/03/18
+AG-1407-FAULT,9005,fault_roto_feed,0,Roto-feed fault signal,BOOL,boolean,X,
+AG-1407-OP,9005,roto_feed_op,0,Roto-feed percentage speed output,DOUBLE,percent,X,
+AI-922021,9005,ai_lock_hopper_purge,0,Lock hopper purge O2,DOUBLE,,X,X
+AI-924501,9007,ai_gasifier_co_monitor,0,Gasifier area CO monitor,DOUBLE,,,X
+AI-924506,9008,ai_barrel_co_monitor,0,Barrel Area area CO monitor,DOUBLE,,,X
+AI-932050,9009,ai_outlet_moisture,0,Outlet moisture,DOUBLE,,X,X
+AI-932060,9009,ai_stack_moisture,0,Stack moisture,,,,
+AI-932504,9006,ai_boiler_co_monitor,0,Boiler area CO monitor,DOUBLE,,,X
+DPI-922019,9007,dp_feeder_inlet,0,Mac feeder/biomass inlet DP,DOUBLE,psi,X,X
+DPI-922021,9007,dp_gasifier,0,Gasifier DP,DOUBLE,psi,X,X
+DPI-922022,9007,dp_inlet_bell,0,Biomass inlet/bell housing DP,DOUBLE,psi,X,X
+DPI-932014,9008,dp_exit_quench,0,Reactor exit/quench vessel DP,DOUBLE,psi,X,X
+DPI-932015,9008,dp_quench_candle,0,Quench vessel/candle filter DP,DOUBLE,psi,X,X
+DPI-932070,9008,dp_quench_ako,0,Quench/ask KO DP,DOUBLE,psi,X,X
+DPI-932071,9008,dp_ako_ambient,0,Ash KO/ambient DP,DOUBLE,psi,X,X
+DPI-932302,9009,dp_bag_purge,0,Purge gas filter cross-bag DP,DOUBLE,psi,X,X
+DPI-936013,9009,dp_candle,0,Candle filter DP,DOUBLE,psi,,
+DPI-936014,9009,dp_quench_candle_hopper,0,Quench/candle filter hopper DP,DOUBLE,psi,X,X
+DPI-936015,9009,dp_candle_ko_ambient,0,Candle filter KO/ambient DP,DOUBLE,psi,X,X
+DPIT-922007,9003,dp_1403_1402,0,U-1403/V-1402 differential pressure,DOUBLE,psi,X,X
+E-STOP,,e_stop,1,,BOOL,boolean,X,X
+FI-1423,9004,mass_flow_supply_4,0,Biomass feed lock hopper flowrate (supply 4),DOUBLE,,X,X
+FI-1445,9004,mass_flow_supply_5,0,Biomass feed lock hopper flowrate (supply 5) ,DOUBLE,,X,X
+FI-932006,9008,mass_flow_quench,0,Primary quench water flow,DOUBLE,,X,X
+FI-932036,9009,flow_coriolis,0,Outlet coriolis flowrate,DOUBLE,,X,X
+FIC-1442-OP,9004,mass_flow_entrainment_op,0,CO2 entrainment feed output,DOUBLE,percent,Maybe,X
+FIC-1442-PV ,9004,mass_flow_entrainment,0,CO2 entrainment feed process value,DOUBLE,,Maybe,X
+FIC-1442-SP,9004,mass_flow_entrainment_sp,1,CO2 entrainment feed setpoint,DOUBLE,,X,X
+FIC-983006-OP,9006,mass_flow_steam_op,0,Steam control valve output,DOUBLE,percent,X,X
+FIC-983006-PV,9006,mass_flow_steam,0,Steam control valve flow,DOUBLE,,X,X
+FIC-983006-SP,9006,mass_flow_steam_sp,1,Steam control valve setpoint,DOUBLE,,X,X
+FIC-986009-OP,9006,mass_flow_superheater_op,0,Steam superheater purge flow output,DOUBLE,percent,X,X
+FIC-986009-PV,9006,mass_flow_superheater_purge,0,Steam superheater purge flow,DOUBLE,,X,X
+FIC-986009-SP,9006,mass_flow_superheater_purge_sp,1,Steam superheater purge flow controller setpoint,DOUBLE,,X,X
+FIC-989011-PV,9007,mass_flow_sweep,0,Sweep CO2 mass flow controller,DOUBLE,,X,X
+FIC-989011-SP,9007,mass_flow_sweep_sp,1,Sweep CO2 mass flow controller setpoint,DOUBLE,,X,X
+FIC-990014-PV,9007,mass_flow_argon,0,Argon mass flow controller,DOUBLE,,X,X
+FIC-990014-SP,9007,mass_flow_argon_sp,1,Argon mass flow controller setpoint,DOUBLE,,X,X
+HS-932018,9008,valve_ako_inlet_actuator,0,Ash KO inlet Spheri-valve actuator,BOOL,boolean,X,X
+HS-932025,9008,valve_ako_outlet_actuator,0,Ash KO outlet Spheri-valve actuator,BOOL,boolean,X,X
+LCV-932024,9008,valve_water_fill,1,Water tank 932T001A fill valve,BOOL,boolean,X,X
+LE-932004,9008,level_water,0,Water tank 932T001A level,DOUBLE,percent,X,X
+LSH-1405,9005,switch_level_water_high,1,V-1406 high level switch,BOOL,boolean,X,X
+LSH-932021,9008,switch_ako_level_high,1,Ash KO level switch high,BOOL,boolean,X,X
+LSL-1406,9005,switch_1406_low,1,V-1406 low level switch,BOOL,boolean,X,X
+PC-983001,9006,pressure_boiler_sp,1,Boiler pressure setpoint,DOUBLE,psig,Maybe,X
+PCV-1420-OP,9004,pressure_entrainment_op,0,CO2 entrainment pressure control valve output,DOUBLE,percent,X,X
+PCV-1420-PV,9004,pressure_entrainment,0,CO2 entrainment pressure control valve process value,DOUBLE,psig,X,X
+PCV-1420-SP,9004,pressure_entrainment_sp,1,CO2 entrainment pressure control valve setpoint,DOUBLE,psig,X,X
+PDI-1445,9004,dp_lock_hopper_injector,0,Lock hopper/injector differential pressure,DOUBLE,psi,X,X
+PI-1442,9004,pressure_roto_feed_injector_inlet,0,Roto-feed injector inlet pressure,DOUBLE,psig,X,X
+PI-1445,9004,pressure_lock_hopper_supply,0,Lock hopper supply pressure,DOUBLE,psig,X,X
+PI-326,9010,pressure_furnace_2,0,Furnace pressure 2 (Bloom),DOUBLE,psig,X,X
+PI-924502,9007,pressure_bell_housing,0,Bell housing pressure,DOUBLE,psig,X,X
+PI-924XXX,9010,pressure_furnace_1,0,Furnace pressure,DOUBLE,psig,X,X
+PI-932019,9008,pressure_ako,0,Ash KO vessel pressure,DOUBLE,psig,X,X
+PI-932042,9009,pressure_purge_gas_filter,0,Purge gas filter pressure,DOUBLE,psig,X,X
+PI-932057,9016,pressure_ms_inlet,0,MS inlet pressure,DOUBLE,psig,X,X
+PI-932503,9008,pressure_backup_quench_inlet,0,Backup quench inlet pressure,DOUBLE,psig,X,X
+PI-936010,9009,pressure_candle_filter_outlet,0,Candle filter outlet pressure,DOUBLE,psig,X,X
+PI-936012,9009,pressure_candle_filter_backpulse,0,Candle filter backpulse pressure,DOUBLE,psig,X,X
+PI-936052,9009,pressure_candle_filter_ko,0,Candle filter KO pressure,DOUBLE,psig,X,X
+PI-983003,9006,pressure_boiler ,0,Boiler pressure,DOUBLE,psig,X,X
+PI-983005,9006,pressure_boiler_exit,0,Boiler exit pressure,DOUBLE,psig,X,X
+PIC-932005-OP,9008,pressure_quench_op,0,Primary quench pressure control valve output,DOUBLE,percent,X,X
+PIC-932005-PV,9008,pressure_quench,0,Primary quench pressure control valve process value,DOUBLE,psig,X,X
+PIC-932005-SP,9008,pressure_quench_sp,1,Primary quench pressure control valve setpoint,DOUBLE,psig,X,X
+PIC-932030-OP,9009,pressure_outlet_op,0,Outlet pressure controller output,DOUBLE,percent,X,X
+PIC-932030-PV,9009,pressure_outlet,0,Outlet pressure controller process value,DOUBLE,psig,X,X
+PIC-932030-SP,9009,pressure_outlet_sp,1,Outlet pressure controller setpoint,DOUBLE,psig,X,X
+PS-1404,9005,switch_bladder_1404_inflation,0,XV-1404 bladder inflation verification,BOOL,boolean,Maybe,X
+PS-1405,9005,switch_bladder_1405_inflation,0,XV-1405 bladder inflation verification,BOOL,boolean,Maybe,X
+PS-1406,9005,switch_bladder_lower_inflation,0,Lower spheri-valve bladder inflation verification,BOOL,boolean,Maybe,X
+PS-932044,9009,switch_bladder_purge_filter_inflation,0,Purge gas filter spheri-valve inflation verification,BOOL,boolean,X,X
+PSL-986611,9016,switch_ms_containment_pressure_low,0,MS containment box pressure switch low,BOOL,boolean,X,X
+PSL-986902,9015,switch_analyzer_containment_pressure_low,0,Analyzer containment box pressure switch low,BOOL,boolean,X,X
+PT-1406,9005,pressure_1405,0,V-1405 pressure,DOUBLE,psig,X,X
+PT-922008/PT-1450,9005,pressure_roto_feed_exit,0,Pressure at exit of Roto-Feed,DOUBLE,psig,X,
+TE-922022,9008,temp_ako_relief,0,Ash KO relief valve line temperature,DOUBLE,C,X,X
+TE-924016,9010,temp_gasifier_refractory_3,0,Gasifier refractory temp 3 (Bloom),,C,,
+TE-932016,9008,temp_quench_exit_relief,0,Quench exit relief valve line temperature,DOUBLE,C,X,X
+TE-983301,9006,temp_superheater_2_shell,0,Superheater stage 2 shell temperature,DOUBLE,C,X,X
+TE-983302,9006,temp_superheater_2_element,0,Superheater stage 2 element temperature,DOUBLE,C,X,X
+TE-983303,9006,temp_superheater_1_shell,0,Superheater stage 1 shell temperature,DOUBLE,C,X,X
+TE-983304,9006,temp_superheater_1_element,0,Superheater stage 1 element temperature,DOUBLE,C,X,X
+TE-983305,9006,temp_superheater_interstage,0,Superheater interstage temperature,DOUBLE,C,X,X
+TI-323,9010,temp_gasifier_stack_inlet,0,Gasifier stack inlet temperature,DOUBLE,C,X,X
+TI-324A,9010,temp_gasifier_refractory_2,0,Gasifier refractory temp 2 (Bloom),DOUBLE,C,X,X
+TI-324B,9010,temp_gasifier_refactory_1,0,Gasifier refractory temp 1 (Bloom),DOUBLE,C,X,X
+TI-922020,9007,temp_biomass_inlet_skin,0,Biomass inlet skin temperature,DOUBLE,C,X,X
+TI-924001,9007,temp_upper_bucket_seal_skin,0,Upper bucket seal skin temperature,DOUBLE,C,X,X
+TI-924002,9007,temp_lower_bucket_seal_skin,0,Lower bucket seal skin temperature,DOUBLE,C,X,X
+TI-924003,9007,temp_gasifier_exit,0,Gasifier exit temperature,DOUBLE,C,X,X
+TI-924004,9007,temp_expansion_joint_skin,0,Expansion joint skin temperature,DOUBLE,C,X,X
+TI-924012,9007,temp_skin_tube_top,0,Gasifier top tube temperature,DOUBLE,C,X,X
+TI-924013,9007,temp_skin_tube_middle,0,Gasifier middle tube temperature,DOUBLE,C,X,X
+TI-924014,9007,temp_skin_tube_bottom,0,Gasifier bottom tube temperature,DOUBLE,C,X,X
+TI-924032,9007,temp_upper_bucket_seal_containment_skin,0,Upper bucket seal containment skin temperature,DOUBLE,C,X,X
+TI-924034,9007,temp_lower_bucket_seal_containment_skin,0,Lower bucket seal containment skin temperature,DOUBLE,C,X,X
+TI-924036,9007,temp_gasifier_exit_spool_skin,0,Gasifier exit spool skin temperature,DOUBLE,C,X,X
+TI-924101,9010,temp_gasifier_stack_outlet,0,Gasifier stack outlet temperature,DOUBLE,C,X,X
+TI-924503,9007,temp_tar_cooler_skin,0,Tar cooler skin temperature,DOUBLE,C,X,X
+TI-932001,9008,temp_quench_skin,0,Quench vessel skin temperature,DOUBLE,C,X,X
+TI-932003,9008,temp_quench_lower,0,Quench vessel lower temperature,DOUBLE,C,X,X
+TI-932007A,9008,temp_quench_exit ,0,Quench exit temperature,DOUBLE,C,X,X
+TI-932007B,9008,temp_quench_exit_redundant,0,Quench exit temperature (redundant),DOUBLE,C,X,X
+TI-932011,9008,temp_primary_quench_inlet,0,Primary quench inlet temperature,DOUBLE,C,X,X
+TI-932017,9008,temp_quench_pressure_relief_exit,0,Quench pressure relief exit temperature,DOUBLE,C,X,X
+TI-932018,9008,temp_quench_exit_valve_skin,0,Quench vessel exit Spheri-valve skin temperature,DOUBLE,C,X,X
+TI-932023,9008,temp_ako_outlet_valve_skin,0,Ash KO outlet Spheri-valve skin temperature,DOUBLE,C,X,X
+TI-932035,9009,temp_coriolis_before,0,Pre-coriolis temperature,DOUBLE,C,X,X
+TI-932051,9007,temp_tar_filter_exit,0,Tar ceramic filter exit temperature,DOUBLE,C,X,X
+TI-932056,9016,temp_ms_inlet,0,MS inlet temperature,DOUBLE,C,X,X
+TI-932101,9008,temp_ako_gas,0,Ash KO gas temperature,DOUBLE,C,X,X
+TI-932151,9015,temp_tar_probe_vent,0,Tar probe vent temperature,DOUBLE,C,X,X
+TI-932152,9015,temp_gc_vent,0,GC vent temperature,DOUBLE,C,X,X
+TI-932501,9008,temp_primary_quench_water,0,Primary quench water tank exit temperature,DOUBLE,C,X,X
+TI-932502,9008,temp_backup_quench_return,0,Backup quench return temperature,DOUBLE,C,X,X
+TI-936001,9009,temp_candle_filter_inlet,0,Candle filter inlet temperature,DOUBLE,C,X,X
+TI-936002,9009,temp_candle_filter_1,0,Candle filter temp 1,DOUBLE,C,X,X
+TI-936003,9009,temp_candle_filter_2,0,Candle filter temp 2,DOUBLE,C,X,X
+TI-936004,9009,temp_candle_filter_3,0,Candle filter temp 3,DOUBLE,C,X,X
+TI-936005,9009,temp_candle_filter_4,0,Candle filter temp 4,DOUBLE,C,X,X
+TI-936006,9009,temp_candle_filter_5,0,Candle filter temp 5,DOUBLE,C,X,X
+TI-936007,9009,temp_candle_filter_outlet,0,Candle filter outlet temperature,DOUBLE,C,X,X
+TI-936008,9009,temp_candle_filter_ash_dump,0,Candle filter ash dump temperature,DOUBLE,C,X,X
+TI-936009,9009,temp_candle_filter_backpulse,0,Candle filter backpulse temperature,DOUBLE,C,X,X
+TI-936102,9009,temp_candle_filter_outlet_purge,0,Candle filter outlet purge temperature,DOUBLE,C,X,X
+TI-983004,9006,temp_boiler,0,Boiler temperature,DOUBLE,C,X,X
+TI-983013,9006,temp_steam_relief_vent,0,Steam pressure relief vent temperature,DOUBLE,C,X,X
+TI-983027,9006,temp_steam_superheater_exit,0,Steam superheater exit temperature,DOUBLE,C,X,X
+TI-983036,9007,temp_steam_gasifier_inlet,0,Gasifier steam inlet temperature,DOUBLE,C,X,X
+TI-986065,9007,temp_car_cooling_exit,0,Tar cooling N2 exit temperature,DOUBLE,C,X,X
+TI-989015,9007,temp_bell_sweep_inlet,0,Bell housing sweep/tracer inlet temperature,DOUBLE,C,X,X
+TIC-932007-OP,9008,temp_quench_op,0,Quench tempreature controller output,DOUBLE,percent,X,X
+TIC-932007-PV,9008,temp_quench,0,Quench temperature controller process value,DOUBLE,C,X,X
+TIC-932007-SP,9008,temp_quench_sp,1,Quench temperature controller setpoint,DOUBLE,C,X,X
+TIC-932053-OP,9015,temp_tar_probe_heat_trace_op,0,Tar probe heat trace output,DOUBLE,percent,X,X
+TIC-932053-PV,9015,temp_tar_probe_heat_trace,0,Tar probe heat trace temperature,DOUBLE,C,X,X
+TIC-932053-SP,9015,temp_tar_probe_heat_trace_sp,1,Tar probe heat trace setpoint,DOUBLE,C,X,X
+TIC-986610-OP,9016,temp_ms_heat_trace_op,0,MS heat trace output,DOUBLE,percent,X,X
+TIC-986610-PV,9016,temp_ms_heat_trace,0,MS heat trace process value,DOUBLE,C,X,X
+TIC-986610-SP,9016,temp_mv_heat_trace_sp,1,MS heat trace setpoint,DOUBLE,C,X,X
+TY-924021-SP,9010,temp_furnace_sp,1,Furnace temperature setpoint,DOUBLE,C,X,X
+TY-983014-SP,9006,temp_superheater_sp,1,Superheater temperature setpoint,DOUBLE,C,X,X
+WIC-1402-PV,9003,valve_feed_auger_pv,0,V-1402 feed auger process value,DOUBLE,percent,X,X
+WIT-1406,9005,mass_feed_vessel,0,Feed vessel weight,DOUBLE,lb,X,X
+XV-1401,9003,valve_feed_hopper_filter_purge,1,U-1403 (feed hopper) filter purge on/off solenoid,BOOL,boolean,X,X
+XV-1404,9005,valve_top_lock_inlet,1,Top lock vessel inlet Spheri-valve,BOOL,boolean,X,X
+XV-1405,9005,valve_inter_feed,1,Inter-feed vessel Spheri-valve,BOOL,boolean,X,X
+XV-1406,9005,valve_bottom_lock_outlet,1,Bottom lock vessel outlet Spheri-Valve,BOOL,boolean,X,X
+XV-1421,9004,valve_injector,1,CO2 to injector on/off solenoid (1/2/5),BOOL,boolean,X,X
+XV-1422,9004,valve_supply_3,1,Biomass feed lock hopper (supply 3) on/off solenoid,BOOL,boolean,Maybe,X
+XV-1423,9004,valve_supply_4,1,Biomass feed lock hopper (supply 4) on/off solenoid,BOOL,boolean,Maybe,X
+XV-1440,9004,valve_injector_2,1,CO2 to injector on/off solenoid (supply 1/2),BOOL,boolean,Maybe,X
+XV-1441,9004,valve_injector_1,1,CO2 to injector on/off solenoid (supply 1) ,BOOL,boolean,Maybe,X
+XV-1443,9005,valve_pressurization,1,V-1407 pressurization on/off valve,BOOL,boolean,Maybe,X
+XV-1444,9005,valve_isolating_flex,1,Isolating flex pressurization,BOOL,boolean,Maybe,X
+XV-1445,9004,valve_supply_5,1,Biomass feed lock hopper (supply5) on/off solenoid,BOOL,boolean,Maybe,X
+XV-1447,9005,valve_purge,1,V-1405 purge on/off valve,BOOL,boolean,Maybe,X
+XV-1448A,9005,valve_purge_1,1,Lock hopper purge solenoid 1,BOOL,boolean,Maybe,X
+XV-1448B,9005,valve_purge_2,1,Lock hopper purge solenoid 2,BOOL,boolean,Maybe,X
+XV-1449A,9005,valve_vent_1,1,Balancing vent solenoid 1,BOOL,boolean,Maybe,X
+XV-1449B,9005,valve_vent_2,1,Balancing vent solenoid 2,BOOL,boolean,Maybe,X
+XV-1449C,9005,valve_vent_bleed,1,Balancing vent bleed solenoid,BOOL,boolean,Maybe,X
+XV-1450,9005,valve_feed_entrainment,1,Feed entrainment shutoff valve,BOOL,boolean,X,X
+XV-922016,9007,valve_biomass_inlet,1,Biomass inlet full port ball-valve,BOOL,boolean,X,X
+XV-932018,9008,valve_quench_exit,1,Quench vessel exit Spheri-valve,BOOL,boolean,X,X
+XV-932025,9008,valve_ako_outlet,1,Ash KO outlet Spheri-valve ,BOOL,boolean,X,X
+XV-932028,9009,valve_oxidizer_purge,1,Thermal oxidizer purge N2 on/off solenoid,BOOL,boolean,X,X
+XV-932046,9009,valve_purge_filter,1,Purge filter outlet valve,BOOL,boolean,X,X
+XV-932049,9008,valve_quench_backup,1,Backup quench on/off solenoid,BOOL,boolean,X,X
+XV-932052,9015,valve_tar_probe,1,Tar probe on/off solenoid,BOOL,boolean,X,X
+XV-932180,9008,valve_quench_isolation,1,Gasifier/quench isolation fast acting valve,BOOL,boolean,X,X
+XV-932301A,9009,valve_filter_backpulse_a,1,Purge gas filter backpulse solenoid A,BOOL,boolean,X,X
+XV-932301B,9009,valve_filter_backpulse_b,1,Purge gas filter backpulse solenoid B,BOOL,boolean,X,X
+XV-932301C,9009,valve_filter_backpulse_c,1,Purge gas filter backpulse solenoid C,BOOL,boolean,X,X
+XV-932504,9008,valve_ako_outlet_shutoff,1,Ash KO outlet shutoff valve,BOOL,boolean,X,X
+XV-932505,9008,valve_quench_exit_top,1,Quench vessel exit valve (top),BOOL,boolean,X,X
+XV-936001A,9009,valve_candle_filter_exit_a,1,Candle filter exit valve A,BOOL,boolean,X,X
+XV-936001B,9009,valve_candle_filter_exit_b,1,Candle filter exit valve B,BOOL,boolean,X,X
+XV-936002A,9009,valve_candle_filter_ko_exit_a,1,Candle filter KO exit valve A,BOOL,boolean,X,X
+XV-936002B,9009,valve_candle_filter_ko_exit_b,1,Candle filter KO exit valve B,BOOL,boolean,X,X
+XV-936050,9009,valve_candle_filter_hopper_purge,1,Candle filter ash hopper purge nitrogen on/off valve,BOOL,boolean,X,X
+XV-936058,9009,valve_candle_filter_outlet_purge,1,Candle filter outlet purge on/off solenoid valve,BOOL,boolean,X,X
+XV-936080,9009,valve_candle_filter_purge_supply,1,Candle filter purge supply N2 on/off solenoid,BOOL,boolean,X,X
+XV-983012,9006,valve_steam_vent,1,Steam vent solenoid,BOOL,boolean,X,X
+XV-983013,9006,valve_steam_shutoff,1,Steam shutoff valve,BOOL,boolean,X,X
+XV-983065,9015,valve_tar_probe_steam,1,Tar probe cleaning steam solenoid,BOOL,boolean,X,X
+XV-986006,9006,valve_steam_superheater_purge,1,Steam superheater purge solenoid,BOOL,boolean,X,X
+XV-986016,9008,valve_ako_purge_filter,1,On/off solenoid from ash KO to purge gas filter,BOOL,boolean,X,X
+XV-986024,9008,valve_ako_purge,1,Ash KO purge N2 on/off solenoid,BOOL,boolean,X,X
+XV-986034,9009,valve_purge_filter_supply,1,Purge gas filter purge supply N2 solenoid,BOOL,boolean,X,X
+XV-986901,9015,valve_tar_probe_purge,1,Tar probe purge N2 solenoid,BOOL,boolean,X,X
+XV-989012,9007,valve_sweep,1,Sweep CO2 on/off solenoid,BOOL,boolean,X,X
+XV-990013,9007,valve_argon,1,Argon tracer on/off solenoid,BOOL,boolean,X,X
+XX-983015-SHUTDOWN,9006,shutdown_superheater,0,Superheater shutdown signal,BOOL,boolean,,X
+ZI-1402,9003,switch_1402_position,0,V-1402 position switch,,boolean,,X
+ZSC-922016,9007,switch_biomass_inlet_closed,0,Biomass inlet full port ball valve closed position switch,BOOL,boolean,X,X
+ZSC-932046,9009,switch_purge_filter_outlet_closed,0,Purge gas filter outlet valve closed position switch,BOOL,boolean,,X
+ZSC-932504,9008,switch_ako_outlet_closed,0,Ash KO outlet shutoff valve closed position switch,BOOL,boolean,X,X
+ZSC-932505,9008,switch_quench_exit_closed,0,Quench vessel exit valve closed position switch,BOOL,boolean,X,X
+ZSC-936001A,9009,switch_candle_filter_exit_a_closed,0,Candle filter exit valve A closed position switch,BOOL,boolean,X,X
+ZSC-936001B,9009,switch_candle_filter_exit_b_closed,0,Candle filter exit valve B closed position switch,BOOL,boolean,X,X
+ZSC-936002A,9009,switch_candle_filter_ko_a_closed,0,Candle filter KO exit valve A closed position switch,BOOL,boolean,X,X
+ZSC-936002B,9009,switch_candle_filter_ko_b_closed,0,Candle filter KO exit valve B closed position switch,BOOL,boolean,X,X
+ZSC-983012,9006,switch_steam_vent_closed,0,Steam vent solenoid closed position switch,BOOL,boolean,X,X
+ZSC-983013,9006,switch_steam_shutoff_closed,0,Steam shutoff solenoid closed position switch,BOOL,boolean,X,X
+ZSO-922016,9007,switch_biomass_inlet_open,0,Biomass inlet full port ball valve open position switch,BOOL,boolean,X,X
+ZSO-983012,9006,switch_steam_vent_open,0,Steam vent solenoid open position switch,BOOL,boolean,X,X
+ZSO-983013,9006,switch_steam_shutoff_open,0,Steam shutoff solenoid open position switch,BOOL,boolean,X,X
