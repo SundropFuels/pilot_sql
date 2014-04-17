@@ -7,7 +7,7 @@ DROP VIEW IF EXISTS analysis_view;
 
 CREATE VIEW analysis_view AS
 SELECT
-  lv_data_tbl.ts AS ts
+  lv_data_tbl.ts AS ts,
   lv_data_tbl.AG_1407_FAULT AS fault_roto_feed,
   lv_data_tbl.AG_1407_OP AS roto_feed_op,
   lv_data_tbl.AI_922021 AS ai_lock_hopper_purge,
