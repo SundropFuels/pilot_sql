@@ -10,7 +10,7 @@ USE pilot_proc_db;
 
 CREATE TABLE setpoint_tbl
 (
-    setpoint_id     INT PRIMARY KEY,
+    setpoint_id     INT PRIMARY KEY AUTO_INCREMENT,
     temperature     DOUBLE,
     pressure        DOUBLE,
     biomass_rate    DOUBLE,
@@ -27,7 +27,7 @@ CREATE TABLE setpoint_tbl
 
 CREATE TABLE run_info_tbl
 (
-    run_id      INT PRIMARY KEY,
+    run_id      INT PRIMARY KEY AUTO_INCREMENT,
     sample_id   INT,
     setpoint_id INT,
     ts_start    DATETIME,
@@ -610,7 +610,7 @@ CREATE TABLE analysis_config_tbl
 
 CREATE TABLE plot_tbl
 (
-  plot_id INT PRIMARY KEY,
+  plot_id INT PRIMARY KEY AUTO_INCREMENT,
   plot_type ENUM('time_series', 'time_series_ss', 'control', 'four'),
   plot_title VARCHAR(45),
   plot_caption VARCHAR(45),
