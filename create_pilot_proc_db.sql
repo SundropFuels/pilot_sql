@@ -1,11 +1,29 @@
+DROP DATABASE IF EXISTS pilot_proc_db;
 CREATE DATABASE IF NOT EXISTS pilot_proc_db;
 
 USE pilot_proc_db;
 
 -- ------------------- --
+-- CREATE SETPOINT TBL --
+-- ------------------- --
+-- DROP TABLE IF EXISTS setpoint_tbl;
+
+CREATE TABLE setpoint_tbl
+(
+    setpoint_id     INT PRIMARY KEY,
+    temperature     DOUBLE,
+    pressure        DOUBLE,
+    biomass_rate    DOUBLE,
+    steam_flow      DOUBLE,
+    steam_temp      DOUBLE,
+    ent_CO2         DOUBLE,
+    feedstock       VARCHAR(45)
+);
+
+-- ------------------- --
 -- CREATE RUN INFO TBL --
 -- ------------------- --
-DROP TABLE IF EXISTS run_info_tbl;
+-- DROP TABLE IF EXISTS run_info_tbl;
 
 CREATE TABLE run_info_tbl
 (
@@ -23,27 +41,10 @@ CREATE TABLE run_info_tbl
         ON DELETE NO ACTION
 );
 
--- ------------------- --
--- CREATE SETPOINT TBL --
--- ------------------- --
-DROP TABLE IF EXISTS setpoint_tbl;
-
-CREATE TABLE setpoint_tbl
-(
-    setpoint_id     INT PRIMARY KEY,
-    temperature     DOUBLE,
-    pressure        DOUBLE,
-    biomass_rate    DOUBLE,
-    steam_flow      DOUBLE,
-    steam_temp      DOUBLE,
-    ent_CO2         DOUBLE,
-    feedstock       VARCHAR(45)
-);
-
 -- -------------------- --
 -- CREATE REANALYZE TBL --
 -- -------------------- --
-DROP TABLE IF EXISTS reanalyze_tbl;
+-- DROP TABLE IF EXISTS reanalyze_tbl;
 
 CREATE TABLE reanalyze_tbl
 (
@@ -60,7 +61,7 @@ CREATE TABLE reanalyze_tbl
 -- CREATE INTEGRAL TBL --
 -- ------------------- --
 
-DROP TABLE IF EXISTS integral_tbl;
+-- DROP TABLE IF EXISTS integral_tbl;
 
 CREATE TABLE integral_tbl
 (
@@ -103,8 +104,8 @@ CREATE TABLE integral_tbl
   FI_932036_std DOUBLE,
   FIC_1442_OP_avg DOUBLE,
   FIC_1442_OP_std DOUBLE,
-  FIC_1442_PV _avg DOUBLE,
-  FIC_1442_PV _std DOUBLE,
+  FIC_1442_PV_avg DOUBLE,
+  FIC_1442_PV_std DOUBLE,
   FIC_1442_SP_avg DOUBLE,
   FIC_1442_SP_std DOUBLE,
   FIC_983006_OP_avg DOUBLE,
@@ -181,8 +182,8 @@ CREATE TABLE integral_tbl
   PIC_932030_SP_std DOUBLE,
   PT_1406_avg DOUBLE,
   PT_1406_std DOUBLE,
-  PT_922008/PT_1450_avg DOUBLE,
-  PT_922008/PT_1450_std DOUBLE,
+  PT_1450_avg DOUBLE,
+  PT_1450_std DOUBLE,
   TE_922022_avg DOUBLE,
   TE_922022_std DOUBLE,
   TE_932016_avg DOUBLE,
@@ -409,6 +410,7 @@ CREATE TABLE integral_tbl
   C7H8_outlet_std DOUBLE,
   C10H8_outlet_avg DOUBLE,
   C10H8_outlet_std DOUBLE,
+  analysis_ts DATETIME,
   FOREIGN KEY (run_id)
         REFERENCES run_info_tbl (run_id)
         ON UPDATE NO ACTION
@@ -419,7 +421,7 @@ CREATE TABLE integral_tbl
 -- CREATE ANALYSIS CONFIG TBL --
 -- -------------------------- --
 
-DROP TABLE IF EXISTS analysis_config_tbl;
+-- DROP TABLE IF EXISTS analysis_config_tbl;
 
 CREATE TABLE analysis_config_tbl
 (
@@ -604,7 +606,7 @@ CREATE TABLE analysis_config_tbl
 -- CREATE REPORT PLOT TBL --
 -- ---------------------- --
 
-DROP TABLE IF EXISTS plot_tbl;
+-- DROP TABLE IF EXISTS plot_tbl;
 
 CREATE TABLE plot_tbl
 (
@@ -629,43 +631,43 @@ CREATE TABLE plot_tbl
 DELIMITER $$
 
 -- Sets reanalyze and new run value for run to zero after integral tbl is updated
-DROP TRIGGER IF EXISTS after_integral_tbl_update
+DROP TRIGGER IF EXISTS after_integral_tbl_update;
 CREATE TRIGGER after_integral_tbl_update AFTER UPDATE ON integral_tbl
   FOR EACH ROW
   BEGIN
     IF NEW.analysis_ts != OLD.analysis_ts THEN
-        UPDATE pilot_reanalyze_tbl SET new_run = 0, reanalyze = 0 WHERE run_id = NEW.run_id;
+        UPDATE reanalyze_tbl SET new_run = 0, reanalyze = 0 WHERE run_id = NEW.run_id;
     END IF;
 END $$
 
 -- Sets reanalyze and new run value for run to zero after new run is insreted into integral tbl
-DROP TRIGGER IF EXISTS after_integral_tbl_insert
+DROP TRIGGER IF EXISTS after_integral_tbl_insert;
 CREATE TRIGGER after_integral_tbl_insert AFTER INSERT ON integral_tbl
   FOR EACH ROW
   BEGIN
-    UPDATE pilot_reanalyze_tbl SET new_run = 0, reanalyze = 0 WHERE run_id = NEW.run_id;
+    UPDATE reanalyze_tbl SET new_run = 0, reanalyze = 0 WHERE run_id = NEW.run_id;
 END $$
 
 -- Sets reanalyze value to 1 when run info tbl is updated for certain columns.  Columns must be added manually to code...
 -- Also will set reanalyze value to 1 for new runs once all needed information is added to run info tbl
-DROP TRIGGER IF EXISTS after_run_info_tbl_update
+DROP TRIGGER IF EXISTS after_run_info_tbl_update;
 CREATE TRIGGER after_run_info_tbl_update AFTER UPDATE ON run_info_tbl
   FOR EACH ROW
   BEGIN
     IF ((NEW.ss_start != OLD.ss_start OR (NEW.ss_start IS NOT NULL AND OLD.ss_start IS NULL))
       OR (NEW.ss_stop != OLD.ss_stop OR (NEW.ss_stop IS NOT NULL AND OLD.ss_stop IS NULL))) 
       AND (NEW.ss_start IS NOT NULL AND NEW.ss_stop IS NOT NULL) THEN
-                UPDATE pilot_reanalyze_tbl SET pilot_reanalyze_tbl.reanalyze = 1 
-                WHERE pilot_reanalyze_tbl.run_id = NEW.run_id;
+                UPDATE reanalyze_tbl SET reanalyze_tbl.reanalyze = 1 
+                WHERE reanalyze_tbl.run_id = NEW.run_id;
     END IF;
 END $$
 
 -- Sets value for new run to 1.  Leaves reanalyze value as 0, waits until needed information is put into run info tbl to mark for reanalysis.
-DROP TRIGGER IF EXISTS after_run_info_tbl_insert
+DROP TRIGGER IF EXISTS after_run_info_tbl_insert;
 CREATE TRIGGER after_run_info_tbl_insert AFTER INSERT ON run_info_tbl
   FOR EACH ROW
   BEGIN
-    INSERT INTO pilot_reanalyze_tbl (run_id, new_run) VALUES (NEW.run_id, 1);
+    INSERT INTO reanalyze_tbl (run_id, new_run) VALUES (NEW.run_id, 1);
 END $$
 
 DELIMITER ;
