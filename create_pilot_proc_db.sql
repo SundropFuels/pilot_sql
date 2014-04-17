@@ -19,6 +19,15 @@ CREATE TABLE setpoint_tbl
     ent_CO2         DOUBLE,
     feedstock       VARCHAR(45)
 );
+ALTER TABLE setpoint_tbl ADD UNIQUE (
+      temperature,
+      pressure,
+      biomass_rate,
+      steam_flow,
+      steam_temp,
+      ent_CO2,
+      feedstock
+      );
 
 -- ------------------- --
 -- CREATE RUN INFO TBL --
