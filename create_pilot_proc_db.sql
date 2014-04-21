@@ -17,17 +17,19 @@ CREATE TABLE setpoint_tbl
     steam_flow      DOUBLE,
     steam_temp      DOUBLE,
     ent_CO2         DOUBLE,
-    feedstock       VARCHAR(45)
+    feedstock       VARCHAR(45),
+    tube_diameter   double
 );
+
 ALTER TABLE setpoint_tbl ADD UNIQUE (
-      temperature,
-      pressure,
-      biomass_rate,
-      steam_flow,
-      steam_temp,
-      ent_CO2,
-      feedstock
-      );
+  temperature,
+  pressure,
+  biomass_rate,
+  steam_flow,
+  steam_temp,
+  ent_CO2,
+  feedstock
+);
 
 -- ------------------- --
 -- CREATE RUN INFO TBL --
@@ -75,260 +77,272 @@ CREATE TABLE reanalyze_tbl
 CREATE TABLE integral_tbl
 (
   run_id INT PRIMARY KEY,
-  AG_1407_OP_avg DOUBLE,
-  AG_1407_OP_std DOUBLE,
-  AI_922021_avg DOUBLE,
-  AI_922021_std DOUBLE,
-  AI_932050_avg DOUBLE,
-  AI_932050_std DOUBLE,
-  DPI_922019_avg DOUBLE,
-  DPI_922019_std DOUBLE,
-  DPI_922021_avg DOUBLE,
-  DPI_922021_std DOUBLE,
-  DPI_922022_avg DOUBLE,
-  DPI_922022_std DOUBLE,
-  DPI_932014_avg DOUBLE,
-  DPI_932014_std DOUBLE,
-  DPI_932015_avg DOUBLE,
-  DPI_932015_std DOUBLE,
-  DPI_932070_avg DOUBLE,
-  DPI_932070_std DOUBLE,
-  DPI_932071_avg DOUBLE,
-  DPI_932071_std DOUBLE,
-  DPI_932302_avg DOUBLE,
-  DPI_932302_std DOUBLE,
-  DPI_936014_avg DOUBLE,
-  DPI_936014_std DOUBLE,
-  DPI_936015_avg DOUBLE,
-  DPI_936015_std DOUBLE,
-  DPIT_922007_avg DOUBLE,
-  DPIT_922007_std DOUBLE,
-  FI_1423_avg DOUBLE,
-  FI_1423_std DOUBLE,
-  FI_1445_avg DOUBLE,
-  FI_1445_std DOUBLE,
-  FI_932006_avg DOUBLE,
-  FI_932006_std DOUBLE,
-  FI_932036_avg DOUBLE,
-  FI_932036_std DOUBLE,
-  FIC_1442_OP_avg DOUBLE,
-  FIC_1442_OP_std DOUBLE,
-  FIC_1442_PV_avg DOUBLE,
-  FIC_1442_PV_std DOUBLE,
-  FIC_1442_SP_avg DOUBLE,
-  FIC_1442_SP_std DOUBLE,
-  FIC_983006_OP_avg DOUBLE,
-  FIC_983006_OP_std DOUBLE,
-  FIC_983006_PV_avg DOUBLE,
-  FIC_983006_PV_std DOUBLE,
-  FIC_983006_SP_avg DOUBLE,
-  FIC_983006_SP_std DOUBLE,
-  FIC_986009_OP_avg DOUBLE,
-  FIC_986009_OP_std DOUBLE,
-  FIC_986009_PV_avg DOUBLE,
-  FIC_986009_PV_std DOUBLE,
-  FIC_986009_SP_avg DOUBLE,
-  FIC_986009_SP_std DOUBLE,
-  FIC_989011_PV_avg DOUBLE,
-  FIC_989011_PV_std DOUBLE,
-  FIC_989011_SP_avg DOUBLE,
-  FIC_989011_SP_std DOUBLE,
-  FIC_990014_PV_avg DOUBLE,
-  FIC_990014_PV_std DOUBLE,
-  FIC_990014_SP_avg DOUBLE,
-  FIC_990014_SP_std DOUBLE,
-  LE_932004_avg DOUBLE,
-  LE_932004_std DOUBLE,
-  PC_983001_avg DOUBLE,
-  PC_983001_std DOUBLE,
-  PCV_1420_OP_avg DOUBLE,
-  PCV_1420_OP_std DOUBLE,
-  PCV_1420_PV_avg DOUBLE,
-  PCV_1420_PV_std DOUBLE,
-  PCV_1420_SP_avg DOUBLE,
-  PCV_1420_SP_std DOUBLE,
-  PDI_1445_avg DOUBLE,
-  PDI_1445_std DOUBLE,
-  PI_1442_avg DOUBLE,
-  PI_1442_std DOUBLE,
-  PI_1445_avg DOUBLE,
-  PI_1445_std DOUBLE,
-  PI_326_avg DOUBLE,
-  PI_326_std DOUBLE,
-  PI_924502_avg DOUBLE,
-  PI_924502_std DOUBLE,
-  PI_924XXX_avg DOUBLE,
-  PI_924XXX_std DOUBLE,
-  PI_932019_avg DOUBLE,
-  PI_932019_std DOUBLE,
-  PI_932042_avg DOUBLE,
-  PI_932042_std DOUBLE,
-  PI_932057_avg DOUBLE,
-  PI_932057_std DOUBLE,
-  PI_932503_avg DOUBLE,
-  PI_932503_std DOUBLE,
-  PI_936010_avg DOUBLE,
-  PI_936010_std DOUBLE,
-  PI_936012_avg DOUBLE,
-  PI_936012_std DOUBLE,
-  PI_936052_avg DOUBLE,
-  PI_936052_std DOUBLE,
-  PI_983003_avg DOUBLE,
-  PI_983003_std DOUBLE,
-  PI_983005_avg DOUBLE,
-  PI_983005_std DOUBLE,
-  PIC_932005_OP_avg DOUBLE,
-  PIC_932005_OP_std DOUBLE,
-  PIC_932005_PV_avg DOUBLE,
-  PIC_932005_PV_std DOUBLE,
-  PIC_932005_SP_avg DOUBLE,
-  PIC_932005_SP_std DOUBLE,
-  PIC_932030_OP_avg DOUBLE,
-  PIC_932030_OP_std DOUBLE,
-  PIC_932030_PV_avg DOUBLE,
-  PIC_932030_PV_std DOUBLE,
-  PIC_932030_SP_avg DOUBLE,
-  PIC_932030_SP_std DOUBLE,
-  PT_1406_avg DOUBLE,
-  PT_1406_std DOUBLE,
-  PT_1450_avg DOUBLE,
-  PT_1450_std DOUBLE,
-  TE_922022_avg DOUBLE,
-  TE_922022_std DOUBLE,
-  TE_932016_avg DOUBLE,
-  TE_932016_std DOUBLE,
-  TE_983301_avg DOUBLE,
-  TE_983301_std DOUBLE,
-  TE_983302_avg DOUBLE,
-  TE_983302_std DOUBLE,
-  TE_983303_avg DOUBLE,
-  TE_983303_std DOUBLE,
-  TE_983304_avg DOUBLE,
-  TE_983304_std DOUBLE,
-  TE_983305_avg DOUBLE,
-  TE_983305_std DOUBLE,
-  TI_323_avg DOUBLE,
-  TI_323_std DOUBLE,
-  TI_324A_avg DOUBLE,
-  TI_324A_std DOUBLE,
-  TI_324B_avg DOUBLE,
-  TI_324B_std DOUBLE,
-  TI_922020_avg DOUBLE,
-  TI_922020_std DOUBLE,
-  TI_924001_avg DOUBLE,
-  TI_924001_std DOUBLE,
-  TI_924002_avg DOUBLE,
-  TI_924002_std DOUBLE,
-  TI_924003_avg DOUBLE,
-  TI_924003_std DOUBLE,
-  TI_924004_avg DOUBLE,
-  TI_924004_std DOUBLE,
-  TI_924012_avg DOUBLE,
-  TI_924012_std DOUBLE,
-  TI_924013_avg DOUBLE,
-  TI_924013_std DOUBLE,
-  TI_924014_avg DOUBLE,
-  TI_924014_std DOUBLE,
-  TI_924032_avg DOUBLE,
-  TI_924032_std DOUBLE,
-  TI_924034_avg DOUBLE,
-  TI_924034_std DOUBLE,
-  TI_924036_avg DOUBLE,
-  TI_924036_std DOUBLE,
-  TI_924101_avg DOUBLE,
-  TI_924101_std DOUBLE,
-  TI_924503_avg DOUBLE,
-  TI_924503_std DOUBLE,
-  TI_932001_avg DOUBLE,
-  TI_932001_std DOUBLE,
-  TI_932003_avg DOUBLE,
-  TI_932003_std DOUBLE,
-  TI_932007A_avg DOUBLE,
-  TI_932007A_std DOUBLE,
-  TI_932007B_avg DOUBLE,
-  TI_932007B_std DOUBLE,
-  TI_932011_avg DOUBLE,
-  TI_932011_std DOUBLE,
-  TI_932017_avg DOUBLE,
-  TI_932017_std DOUBLE,
-  TI_932018_avg DOUBLE,
-  TI_932018_std DOUBLE,
-  TI_932023_avg DOUBLE,
-  TI_932023_std DOUBLE,
-  TI_932035_avg DOUBLE,
-  TI_932035_std DOUBLE,
-  TI_932051_avg DOUBLE,
-  TI_932051_std DOUBLE,
-  TI_932056_avg DOUBLE,
-  TI_932056_std DOUBLE,
-  TI_932101_avg DOUBLE,
-  TI_932101_std DOUBLE,
-  TI_932151_avg DOUBLE,
-  TI_932151_std DOUBLE,
-  TI_932152_avg DOUBLE,
-  TI_932152_std DOUBLE,
-  TI_932501_avg DOUBLE,
-  TI_932501_std DOUBLE,
-  TI_932502_avg DOUBLE,
-  TI_932502_std DOUBLE,
-  TI_936001_avg DOUBLE,
-  TI_936001_std DOUBLE,
-  TI_936002_avg DOUBLE,
-  TI_936002_std DOUBLE,
-  TI_936003_avg DOUBLE,
-  TI_936003_std DOUBLE,
-  TI_936004_avg DOUBLE,
-  TI_936004_std DOUBLE,
-  TI_936005_avg DOUBLE,
-  TI_936005_std DOUBLE,
-  TI_936006_avg DOUBLE,
-  TI_936006_std DOUBLE,
-  TI_936007_avg DOUBLE,
-  TI_936007_std DOUBLE,
-  TI_936008_avg DOUBLE,
-  TI_936008_std DOUBLE,
-  TI_936009_avg DOUBLE,
-  TI_936009_std DOUBLE,
-  TI_936102_avg DOUBLE,
-  TI_936102_std DOUBLE,
-  TI_983004_avg DOUBLE,
-  TI_983004_std DOUBLE,
-  TI_983013_avg DOUBLE,
-  TI_983013_std DOUBLE,
-  TI_983027_avg DOUBLE,
-  TI_983027_std DOUBLE,
-  TI_983036_avg DOUBLE,
-  TI_983036_std DOUBLE,
-  TI_986065_avg DOUBLE,
-  TI_986065_std DOUBLE,
-  TI_989015_avg DOUBLE,
-  TI_989015_std DOUBLE,
-  TIC_932007_OP_avg DOUBLE,
-  TIC_932007_OP_std DOUBLE,
-  TIC_932007_PV_avg DOUBLE,
-  TIC_932007_PV_std DOUBLE,
-  TIC_932007_SP_avg DOUBLE,
-  TIC_932007_SP_std DOUBLE,
-  TIC_932053_OP_avg DOUBLE,
-  TIC_932053_OP_std DOUBLE,
-  TIC_932053_PV_avg DOUBLE,
-  TIC_932053_PV_std DOUBLE,
-  TIC_932053_SP_avg DOUBLE,
-  TIC_932053_SP_std DOUBLE,
-  TIC_986610_OP_avg DOUBLE,
-  TIC_986610_OP_std DOUBLE,
-  TIC_986610_PV_avg DOUBLE,
-  TIC_986610_PV_std DOUBLE,
-  TIC_986610_SP_avg DOUBLE,
-  TIC_986610_SP_std DOUBLE,
-  TY_924021_SP_avg DOUBLE,
-  TY_924021_SP_std DOUBLE,
-  TY_983014_SP_avg DOUBLE,
-  TY_983014_SP_std DOUBLE,
-  WIC_1402_PV_avg DOUBLE,
-  WIC_1402_PV_std DOUBLE,
-  WIT_1406_avg DOUBLE,
-  WIT_1406_std DOUBLE,
+  ai_lock_hopper_purge_avg DOUBLE,
+  ai_lock_hopper_purge_std DOUBLE,
+  ai_outlet_moisture_avg DOUBLE,
+  ai_outlet_moisture_std DOUBLE,
+  dp_1403_1402_avg DOUBLE,
+  dp_1403_1402_std DOUBLE,
+  dp_ako_ambient_avg DOUBLE,
+  dp_ako_ambient_std DOUBLE,
+  dp_bag_purge_avg DOUBLE,
+  dp_bag_purge_std DOUBLE,
+  dp_candle_ko_ambient_avg DOUBLE,
+  dp_candle_ko_ambient_std DOUBLE,
+  dp_exit_quench_avg DOUBLE,
+  dp_exit_quench_std DOUBLE,
+  dp_feeder_inlet_avg DOUBLE,
+  dp_feeder_inlet_std DOUBLE,
+  dp_gasifier_avg DOUBLE,
+  dp_gasifier_std DOUBLE,
+  dp_inlet_bell_avg DOUBLE,
+  dp_inlet_bell_std DOUBLE,
+  dp_lock_hopper_injector_avg DOUBLE,
+  dp_lock_hopper_injector_std DOUBLE,
+  dp_quench_ako_avg DOUBLE,
+  dp_quench_ako_std DOUBLE,
+  dp_quench_candle_avg DOUBLE,
+  dp_quench_candle_std DOUBLE,
+  dp_quench_candle_hopper_avg DOUBLE,
+  dp_quench_candle_hopper_std DOUBLE,
+  flow_coriolis_avg DOUBLE,
+  flow_coriolis_std DOUBLE,
+  level_water_avg DOUBLE,
+  level_water_std DOUBLE,
+  mass_feed_vessel_avg DOUBLE,
+  mass_feed_vessel_std DOUBLE,
+  mass_flow_argon_avg DOUBLE,
+  mass_flow_argon_std DOUBLE,
+  mass_flow_argon_sp_avg DOUBLE,
+  mass_flow_argon_sp_std DOUBLE,
+  mass_flow_entrainment_avg DOUBLE,
+  mass_flow_entrainment_std DOUBLE,
+  mass_flow_entrainment_op_avg DOUBLE,
+  mass_flow_entrainment_op_std DOUBLE,
+  mass_flow_entrainment_sp_avg DOUBLE,
+  mass_flow_entrainment_sp_std DOUBLE,
+  mass_flow_quench_avg DOUBLE,
+  mass_flow_quench_std DOUBLE,
+  mass_flow_steam_avg DOUBLE,
+  mass_flow_steam_std DOUBLE,
+  mass_flow_steam_op_avg DOUBLE,
+  mass_flow_steam_op_std DOUBLE,
+  mass_flow_steam_sp_avg DOUBLE,
+  mass_flow_steam_sp_std DOUBLE,
+  mass_flow_superheater_op_avg DOUBLE,
+  mass_flow_superheater_op_std DOUBLE,
+  mass_flow_superheater_purge_avg DOUBLE,
+  mass_flow_superheater_purge_std DOUBLE,
+  mass_flow_superheater_purge_sp_avg DOUBLE,
+  mass_flow_superheater_purge_sp_std DOUBLE,
+  mass_flow_supply_4_avg DOUBLE,
+  mass_flow_supply_4_std DOUBLE,
+  mass_flow_supply_5_avg DOUBLE,
+  mass_flow_supply_5_std DOUBLE,
+  mass_flow_sweep_avg DOUBLE,
+  mass_flow_sweep_std DOUBLE,
+  mass_flow_sweep_sp_avg DOUBLE,
+  mass_flow_sweep_sp_std DOUBLE,
+  pressure_1405_avg DOUBLE,
+  pressure_1405_std DOUBLE,
+  pressure_ako_avg DOUBLE,
+  pressure_ako_std DOUBLE,
+  pressure_backup_quench_inlet_avg DOUBLE,
+  pressure_backup_quench_inlet_std DOUBLE,
+  pressure_bell_housing_avg DOUBLE,
+  pressure_bell_housing_std DOUBLE,
+  pressure_boiler_avg DOUBLE,
+  pressure_boiler_std DOUBLE,
+  pressure_boiler_exit_avg DOUBLE,
+  pressure_boiler_exit_std DOUBLE,
+  pressure_boiler_sp_avg DOUBLE,
+  pressure_boiler_sp_std DOUBLE,
+  pressure_candle_filter_backpulse_avg DOUBLE,
+  pressure_candle_filter_backpulse_std DOUBLE,
+  pressure_candle_filter_ko_avg DOUBLE,
+  pressure_candle_filter_ko_std DOUBLE,
+  pressure_candle_filter_outlet_avg DOUBLE,
+  pressure_candle_filter_outlet_std DOUBLE,
+  pressure_entrainment_avg DOUBLE,
+  pressure_entrainment_std DOUBLE,
+  pressure_entrainment_op_avg DOUBLE,
+  pressure_entrainment_op_std DOUBLE,
+  pressure_entrainment_sp_avg DOUBLE,
+  pressure_entrainment_sp_std DOUBLE,
+  pressure_furnace_1_avg DOUBLE,
+  pressure_furnace_1_std DOUBLE,
+  pressure_furnace_2_avg DOUBLE,
+  pressure_furnace_2_std DOUBLE,
+  pressure_gasifier_furnace_avg DOUBLE,
+  pressure_gasifier_furnace_std DOUBLE,
+  pressure_lock_hopper_supply_avg DOUBLE,
+  pressure_lock_hopper_supply_std DOUBLE,
+  pressure_ms_inlet_avg DOUBLE,
+  pressure_ms_inlet_std DOUBLE,
+  pressure_outlet_avg DOUBLE,
+  pressure_outlet_std DOUBLE,
+  pressure_outlet_op_avg DOUBLE,
+  pressure_outlet_op_std DOUBLE,
+  pressure_outlet_sp_avg DOUBLE,
+  pressure_outlet_sp_std DOUBLE,
+  pressure_purge_gas_filter_avg DOUBLE,
+  pressure_purge_gas_filter_std DOUBLE,
+  pressure_quench_avg DOUBLE,
+  pressure_quench_std DOUBLE,
+  pressure_quench_op_avg DOUBLE,
+  pressure_quench_op_std DOUBLE,
+  pressure_quench_sp_avg DOUBLE,
+  pressure_quench_sp_std DOUBLE,
+  pressure_roto_feed_exit_avg DOUBLE,
+  pressure_roto_feed_exit_std DOUBLE,
+  pressure_roto_feed_injector_inlet_avg DOUBLE,
+  pressure_roto_feed_injector_inlet_std DOUBLE,
+  roto_feed_op_avg DOUBLE,
+  roto_feed_op_std DOUBLE,
+  temp_ako_gas_avg DOUBLE,
+  temp_ako_gas_std DOUBLE,
+  temp_ako_outlet_valve_skin_avg DOUBLE,
+  temp_ako_outlet_valve_skin_std DOUBLE,
+  temp_ako_relief_avg DOUBLE,
+  temp_ako_relief_std DOUBLE,
+  temp_backup_quench_return_avg DOUBLE,
+  temp_backup_quench_return_std DOUBLE,
+  temp_bell_sweep_inlet_avg DOUBLE,
+  temp_bell_sweep_inlet_std DOUBLE,
+  temp_biomass_inlet_skin_avg DOUBLE,
+  temp_biomass_inlet_skin_std DOUBLE,
+  temp_boiler_avg DOUBLE,
+  temp_boiler_std DOUBLE,
+  temp_candle_filter_1_avg DOUBLE,
+  temp_candle_filter_1_std DOUBLE,
+  temp_candle_filter_2_avg DOUBLE,
+  temp_candle_filter_2_std DOUBLE,
+  temp_candle_filter_3_avg DOUBLE,
+  temp_candle_filter_3_std DOUBLE,
+  temp_candle_filter_4_avg DOUBLE,
+  temp_candle_filter_4_std DOUBLE,
+  temp_candle_filter_5_avg DOUBLE,
+  temp_candle_filter_5_std DOUBLE,
+  temp_candle_filter_ash_dump_avg DOUBLE,
+  temp_candle_filter_ash_dump_std DOUBLE,
+  temp_candle_filter_backpulse_avg DOUBLE,
+  temp_candle_filter_backpulse_std DOUBLE,
+  temp_candle_filter_inlet_avg DOUBLE,
+  temp_candle_filter_inlet_std DOUBLE,
+  temp_candle_filter_outlet_avg DOUBLE,
+  temp_candle_filter_outlet_std DOUBLE,
+  temp_candle_filter_outlet_purge_avg DOUBLE,
+  temp_candle_filter_outlet_purge_std DOUBLE,
+  temp_car_cooling_exit_avg DOUBLE,
+  temp_car_cooling_exit_std DOUBLE,
+  temp_coriolis_before_avg DOUBLE,
+  temp_coriolis_before_std DOUBLE,
+  temp_expansion_joint_skin_avg DOUBLE,
+  temp_expansion_joint_skin_std DOUBLE,
+  temp_furnace_sp_avg DOUBLE,
+  temp_furnace_sp_std DOUBLE,
+  temp_gasifier_exit_avg DOUBLE,
+  temp_gasifier_exit_std DOUBLE,
+  temp_gasifier_exit_spool_skin_avg DOUBLE,
+  temp_gasifier_exit_spool_skin_std DOUBLE,
+  temp_gasifier_refactory_1_avg DOUBLE,
+  temp_gasifier_refactory_1_std DOUBLE,
+  temp_gasifier_refractory_2_avg DOUBLE,
+  temp_gasifier_refractory_2_std DOUBLE,
+  temp_gasifier_stack_inlet_avg DOUBLE,
+  temp_gasifier_stack_inlet_std DOUBLE,
+  temp_gasifier_stack_outlet_avg DOUBLE,
+  temp_gasifier_stack_outlet_std DOUBLE,
+  temp_gc_vent_avg DOUBLE,
+  temp_gc_vent_std DOUBLE,
+  temp_lower_bucket_seal_containment_skin_avg DOUBLE,
+  temp_lower_bucket_seal_containment_skin_std DOUBLE,
+  temp_lower_bucket_seal_skin_a_avg DOUBLE,
+  temp_lower_bucket_seal_skin_a_std DOUBLE,
+  temp_lower_bucket_seal_skin_b_avg DOUBLE,
+  temp_lower_bucket_seal_skin_b_std DOUBLE,
+  temp_lower_bucket_seal_skin_c_avg DOUBLE,
+  temp_lower_bucket_seal_skin_c_std DOUBLE,
+  temp_lower_bucket_seal_skin_d_avg DOUBLE,
+  temp_lower_bucket_seal_skin_d_std DOUBLE,
+  temp_ms_heat_trace_avg DOUBLE,
+  temp_ms_heat_trace_std DOUBLE,
+  temp_ms_heat_trace_op_avg DOUBLE,
+  temp_ms_heat_trace_op_std DOUBLE,
+  temp_ms_inlet_avg DOUBLE,
+  temp_ms_inlet_std DOUBLE,
+  temp_mv_heat_trace_sp_avg DOUBLE,
+  temp_mv_heat_trace_sp_std DOUBLE,
+  temp_primary_quench_inlet_avg DOUBLE,
+  temp_primary_quench_inlet_std DOUBLE,
+  temp_primary_quench_water_avg DOUBLE,
+  temp_primary_quench_water_std DOUBLE,
+  temp_quench_avg DOUBLE,
+  temp_quench_std DOUBLE,
+  temp_quench_exit_avg DOUBLE,
+  temp_quench_exit_std DOUBLE,
+  temp_quench_exit_redundant_avg DOUBLE,
+  temp_quench_exit_redundant_std DOUBLE,
+  temp_quench_exit_relief_avg DOUBLE,
+  temp_quench_exit_relief_std DOUBLE,
+  temp_quench_exit_valve_skin_avg DOUBLE,
+  temp_quench_exit_valve_skin_std DOUBLE,
+  temp_quench_lower_avg DOUBLE,
+  temp_quench_lower_std DOUBLE,
+  temp_quench_op_avg DOUBLE,
+  temp_quench_op_std DOUBLE,
+  temp_quench_pressure_relief_exit_avg DOUBLE,
+  temp_quench_pressure_relief_exit_std DOUBLE,
+  temp_quench_skin_avg DOUBLE,
+  temp_quench_skin_std DOUBLE,
+  temp_quench_sp_avg DOUBLE,
+  temp_quench_sp_std DOUBLE,
+  temp_skin_tube_bottom_avg DOUBLE,
+  temp_skin_tube_bottom_std DOUBLE,
+  temp_skin_tube_middle_avg DOUBLE,
+  temp_skin_tube_middle_std DOUBLE,
+  temp_skin_tube_top_avg DOUBLE,
+  temp_skin_tube_top_std DOUBLE,
+  temp_steam_gasifier_inlet_avg DOUBLE,
+  temp_steam_gasifier_inlet_std DOUBLE,
+  temp_steam_relief_vent_avg DOUBLE,
+  temp_steam_relief_vent_std DOUBLE,
+  temp_steam_superheater_exit_avg DOUBLE,
+  temp_steam_superheater_exit_std DOUBLE,
+  temp_superheater_1_element_avg DOUBLE,
+  temp_superheater_1_element_std DOUBLE,
+  temp_superheater_1_shell_avg DOUBLE,
+  temp_superheater_1_shell_std DOUBLE,
+  temp_superheater_2_element_avg DOUBLE,
+  temp_superheater_2_element_std DOUBLE,
+  temp_superheater_2_shell_avg DOUBLE,
+  temp_superheater_2_shell_std DOUBLE,
+  temp_superheater_interstage_avg DOUBLE,
+  temp_superheater_interstage_std DOUBLE,
+  temp_superheater_relief_1_avg DOUBLE,
+  temp_superheater_relief_1_std DOUBLE,
+  temp_superheater_relief_2_avg DOUBLE,
+  temp_superheater_relief_2_std DOUBLE,
+  temp_superheater_sp_avg DOUBLE,
+  temp_superheater_sp_std DOUBLE,
+  temp_tar_cooler_skin_avg DOUBLE,
+  temp_tar_cooler_skin_std DOUBLE,
+  temp_tar_filter_exit_avg DOUBLE,
+  temp_tar_filter_exit_std DOUBLE,
+  temp_tar_probe_heat_trace_avg DOUBLE,
+  temp_tar_probe_heat_trace_std DOUBLE,
+  temp_tar_probe_heat_trace_op_avg DOUBLE,
+  temp_tar_probe_heat_trace_op_std DOUBLE,
+  temp_tar_probe_heat_trace_sp_avg DOUBLE,
+  temp_tar_probe_heat_trace_sp_std DOUBLE,
+  temp_tar_probe_vent_avg DOUBLE,
+  temp_tar_probe_vent_std DOUBLE,
+  temp_upper_bucket_seal_containment_skin_avg DOUBLE,
+  temp_upper_bucket_seal_containment_skin_std DOUBLE,
+  temp_upper_bucket_seal_skin_avg DOUBLE,
+  temp_upper_bucket_seal_skin_std DOUBLE,
+  valve_feed_auger_pv_avg DOUBLE,
+  valve_feed_auger_pv_std DOUBLE,
   N2_MS_avg DOUBLE,
   N2_MS_std DOUBLE,
   Ar_MS_avg DOUBLE,
@@ -438,133 +452,139 @@ CREATE TABLE analysis_config_tbl
   active TINYINT(1)
 );
 
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('AG_1407_OP', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('AI_922021', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('AI_932050', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('DPI_922019', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('DPI_922021', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('DPI_922022', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('DPI_932014', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('DPI_932015', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('DPI_932070', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('DPI_932071', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('DPI_932302', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('DPI_936014', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('DPI_936015', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('DPIT_922007', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('FI_1423', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('FI_1445', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('FI_932006', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('FI_932036', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('FIC_1442_OP', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('FIC_1442_PV ', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('FIC_1442_SP', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('FIC_983006_OP', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('FIC_983006_PV', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('FIC_983006_SP', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('FIC_986009_OP', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('FIC_986009_PV', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('FIC_986009_SP', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('FIC_989011_PV', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('FIC_989011_SP', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('FIC_990014_PV', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('FIC_990014_SP', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('LE_932004', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('PC_983001', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('PCV_1420_OP', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('PCV_1420_PV', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('PCV_1420_SP', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('PDI_1445', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('PI_1442', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('PI_1445', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('PI_326', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('PI_924502', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('PI_924XXX', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('PI_932019', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('PI_932042', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('PI_932057', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('PI_932503', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('PI_936010', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('PI_936012', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('PI_936052', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('PI_983003', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('PI_983005', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('PIC_932005_OP', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('PIC_932005_PV', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('PIC_932005_SP', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('PIC_932030_OP', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('PIC_932030_PV', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('PIC_932030_SP', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('PT_1406', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('PT_922008/PT_1450', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('TE_922022', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('TE_932016', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('TE_983301', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('TE_983302', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('TE_983303', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('TE_983304', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('TE_983305', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('TI_323', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('TI_324A', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('TI_324B', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('TI_922020', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('TI_924001', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('TI_924002', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('TI_924003', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('TI_924004', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('TI_924012', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('TI_924013', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('TI_924014', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('TI_924032', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('TI_924034', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('TI_924036', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('TI_924101', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('TI_924503', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('TI_932001', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('TI_932003', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('TI_932007A', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('TI_932007B', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('TI_932011', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('TI_932017', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('TI_932018', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('TI_932023', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('TI_932035', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('TI_932051', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('TI_932056', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('TI_932101', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('TI_932151', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('TI_932152', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('TI_932501', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('TI_932502', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('TI_936001', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('TI_936002', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('TI_936003', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('TI_936004', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('TI_936005', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('TI_936006', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('TI_936007', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('TI_936008', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('TI_936009', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('TI_936102', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('TI_983004', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('TI_983013', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('TI_983027', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('TI_983036', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('TI_986065', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('TI_989015', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('TIC_932007_OP', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('TIC_932007_PV', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('TIC_932007_SP', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('TIC_932053_OP', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('TIC_932053_PV', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('TIC_932053_SP', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('TIC_986610_OP', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('TIC_986610_PV', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('TIC_986610_SP', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('TY_924021_SP', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('TY_983014_SP', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('WIC_1402_PV', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('WIT_1406', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('ai_lock_hopper_purge', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('ai_outlet_moisture', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('dp_1403_1402', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('dp_ako_ambient', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('dp_bag_purge', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('dp_candle_ko_ambient', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('dp_exit_quench', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('dp_feeder_inlet', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('dp_gasifier', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('dp_inlet_bell', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('dp_lock_hopper_injector', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('dp_quench_ako', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('dp_quench_candle', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('dp_quench_candle_hopper', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('flow_coriolis', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('level_water', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('mass_feed_vessel', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('mass_flow_argon', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('mass_flow_argon_sp', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('mass_flow_entrainment', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('mass_flow_entrainment_op', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('mass_flow_entrainment_sp', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('mass_flow_quench', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('mass_flow_steam', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('mass_flow_steam_op', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('mass_flow_steam_sp', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('mass_flow_superheater_op', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('mass_flow_superheater_purge', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('mass_flow_superheater_purge_sp', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('mass_flow_supply_4', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('mass_flow_supply_5', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('mass_flow_sweep', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('mass_flow_sweep_sp', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('pressure_1405', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('pressure_ako', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('pressure_backup_quench_inlet', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('pressure_bell_housing', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('pressure_boiler', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('pressure_boiler_exit', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('pressure_boiler_sp', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('pressure_candle_filter_backpulse', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('pressure_candle_filter_ko', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('pressure_candle_filter_outlet', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('pressure_entrainment', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('pressure_entrainment_op', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('pressure_entrainment_sp', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('pressure_furnace_1', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('pressure_furnace_2', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('pressure_gasifier_furnace', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('pressure_lock_hopper_supply', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('pressure_ms_inlet', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('pressure_outlet', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('pressure_outlet_op', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('pressure_outlet_sp', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('pressure_purge_gas_filter', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('pressure_quench', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('pressure_quench_op', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('pressure_quench_sp', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('pressure_roto_feed_exit', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('pressure_roto_feed_injector_inlet', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('roto_feed_op', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_ako_gas', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_ako_outlet_valve_skin', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_ako_relief', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_backup_quench_return', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_bell_sweep_inlet', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_biomass_inlet_skin', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_boiler', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_candle_filter_1', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_candle_filter_2', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_candle_filter_3', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_candle_filter_4', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_candle_filter_5', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_candle_filter_ash_dump', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_candle_filter_backpulse', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_candle_filter_inlet', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_candle_filter_outlet', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_candle_filter_outlet_purge', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_car_cooling_exit', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_coriolis_before', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_expansion_joint_skin', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_furnace_sp', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_gasifier_exit', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_gasifier_exit_spool_skin', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_gasifier_refactory_1', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_gasifier_refractory_2', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_gasifier_stack_inlet', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_gasifier_stack_outlet', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_gc_vent', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_lower_bucket_seal_containment_skin', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_lower_bucket_seal_skin_a', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_lower_bucket_seal_skin_b', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_lower_bucket_seal_skin_c', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_lower_bucket_seal_skin_d', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_ms_heat_trace', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_ms_heat_trace_op', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_ms_inlet', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_mv_heat_trace_sp', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_primary_quench_inlet', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_primary_quench_water', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_quench', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_quench_exit', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_quench_exit_redundant', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_quench_exit_relief', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_quench_exit_valve_skin', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_quench_lower', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_quench_op', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_quench_pressure_relief_exit', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_quench_skin', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_quench_sp', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_skin_tube_bottom', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_skin_tube_middle', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_skin_tube_top', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_steam_gasifier_inlet', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_steam_relief_vent', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_steam_superheater_exit', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_superheater_1_element', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_superheater_1_shell', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_superheater_2_element', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_superheater_2_shell', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_superheater_interstage', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_superheater_relief_1', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_superheater_relief_2', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_superheater_sp', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_tar_cooler_skin', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_tar_filter_exit', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_tar_probe_heat_trace', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_tar_probe_heat_trace_op', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_tar_probe_heat_trace_sp', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_tar_probe_vent', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_upper_bucket_seal_containment_skin', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('temp_upper_bucket_seal_skin', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('valve_feed_auger_pv', 1);
   INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('N2_MS', 1);
   INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('Ar_MS', 1);
   INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('H2O_MS', 1);
@@ -579,7 +599,22 @@ CREATE TABLE analysis_config_tbl
   INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('C3H6_MS', 1);
   INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('C6H6_MS', 1);
   INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('C7H8_MS', 1);
-  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('C10H8_MS', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('C10H8_MS', 1);  
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('N2_normalized', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('Ar_normalized', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('H2O_normalized', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('H2_normalized', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('CO_normalized', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('CO2_normalized', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('CH4_normalized', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('C2H6_normalized', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('C2H4_normalized', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('C2H2_normalized', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('C3H8_normalized', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('C3H6_normalized', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('C6H6_normalized', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('C7H8_normalized', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('C10H8_normalized', 1);  
   INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('N2_inlet', 1);
   INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('Ar_inlet', 1);
   INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('H2O_inlet', 1);
