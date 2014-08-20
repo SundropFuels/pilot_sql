@@ -17,19 +17,28 @@ CREATE TABLE setpoint_tbl
     steam_flow      DOUBLE,
     steam_temp      DOUBLE,
     ent_CO2         DOUBLE,
+    sweep_CO2       DOUBLE,
+    Ar_tracer       DOUBLE,
     feedstock       VARCHAR(45),
     tube_diameter   double
 );
 
-ALTER TABLE setpoint_tbl ADD UNIQUE (
-  temperature,
-  pressure,
-  biomass_rate,
-  steam_flow,
-  steam_temp,
-  ent_CO2,
-  feedstock
-);
+-- ------------------- --
+-- CREATE BIOMASS TBL  --
+-- ------------------- --
+DROP TABLE IF EXISTS biomass_tbl;
+
+CREATE TABLE biomass_tbl
+(
+biomass_id INT,
+sample_name VARCHAR(100),
+moisture DOUBLE,
+wt_c DOUBLE,
+wt_n DOUBLE,
+wt_h DOUBLE,
+d10 DOUBLE,
+d50 DOUBLE,
+d90 DOUBLE);
 
 -- ------------------- --
 -- CREATE RUN INFO TBL --
@@ -41,13 +50,20 @@ CREATE TABLE run_info_tbl
     run_id      INT PRIMARY KEY AUTO_INCREMENT,
     sample_id   INT,
     setpoint_id INT,
+    biomass_id INT,
     ts_start    DATETIME,
     ts_stop     DATETIME,
     ss_start    DATETIME,
     ss_stop     DATETIME,
     operator    VARCHAR(45),
+    feeder_slope DOUBLE,
+    feeder_intercept DOUBLE,
     FOREIGN KEY (setpoint_id)
         REFERENCES setpoint_tbl (setpoint_id)
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    FOREIGN KEY (biomass_id)
+        REFERENCES biomass_tbl (biomass_id)
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
 );
@@ -674,7 +690,7 @@ CREATE TABLE plot_tbl
 DROP VIEW IF EXISTS run_plan_view;
 
 CREATE VIEW run_plan_view AS
-  SELECT run_id, sample_id, ts_start, ts_stop, ss_start, ss_stop, operator FROM run_info_tbl 
+  SELECT * FROM run_info_tbl 
   LEFT JOIN setpoint_tbl ON
   run_info_tbl.setpoint_id = setpoint_tbl.setpoint_id;
 
