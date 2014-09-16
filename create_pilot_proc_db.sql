@@ -48,6 +48,7 @@ DROP TABLE IF EXISTS run_info_tbl;
 CREATE TABLE run_info_tbl
 (
     run_id      INT PRIMARY KEY,
+    exp_id	VARCHAR(45),
     setpoint_id INT,
     biomass_id INT,
     ts_start    DATETIME,
@@ -94,6 +95,8 @@ CREATE TABLE pilot_proc_data_tbl
   ts DATETIME PRIMARY KEY,
   counter INT,
   biomass_flowrate DOUBLE,
+  biomass_flowrate_hopper_massloss DOUBLE,
+  biomass_flowrate_hopper_massloss_s DOUBLE,
   roto_feed_op DOUBLE,
   mass_flow_entrainment DOUBLE,
   mass_flow_entrainment_sp DOUBLE,
@@ -255,6 +258,7 @@ CREATE TABLE pilot_proc_data_tbl
   ai_outlet_moisture DOUBLE,
   stack_moisture_percent DOUBLE,
   mass_feed_vessel DOUBLE,
+  mass_feed_vessel_stepped DOUBLE,
   value_feed_auger_pv DOUBLE,
   e_stop INT,
   valve_ako_inlet_actuator INT,
@@ -441,7 +445,8 @@ CREATE TABLE pilot_proc_data_tbl
   space_time DOUBLE,
   delta_H DOUBLE,
   dH_max DOUBLE,
-  exit_gas_flowrate DOUBLE
+  exit_gas_flowrate DOUBLE,
+  t_min DOUBLE
 );
 
 -- ------------------- --
@@ -454,6 +459,8 @@ CREATE TABLE integral_tbl
 (
   run_id INT PRIMARY KEY,
   biomass_flowrate_avg DOUBLE,
+  biomass_flowrate_hopper_massloss_avg DOUBLE,
+  biomass_flowrate_hopper_massloss_s_avg DOUBLE,
   roto_feed_op_avg DOUBLE,
   mass_flow_entrainment_avg DOUBLE,
   mass_flow_entrainment_sp_avg DOUBLE,
@@ -601,6 +608,7 @@ CREATE TABLE integral_tbl
   ai_outlet_moisture_avg DOUBLE,
   stack_moisture_percent_avg DOUBLE,
   mass_feed_vessel_avg DOUBLE,
+  mass_feed_vessel_stepped_avg DOUBLE,
   value_feed_auger_pv_avg DOUBLE,
   pp_H2O_avg DOUBLE,
   pp_CO2_avg DOUBLE,
@@ -712,7 +720,10 @@ CREATE TABLE integral_tbl
   delta_H_avg DOUBLE,
   dH_max_avg DOUBLE,
   exit_gas_flowrate_avg DOUBLE,
+  t_min_avg DOUBLE,
   biomass_flowrate_std DOUBLE,
+  biomass_flowrate_hopper_massloss_std DOUBLE,
+  biomass_flowrate_hopper_massloss_s_std DOUBLE,
   roto_feed_op_std DOUBLE,
   mass_flow_entrainment_std DOUBLE,
   mass_flow_entrainment_sp_std DOUBLE,
@@ -860,6 +871,7 @@ CREATE TABLE integral_tbl
   ai_outlet_moisture_std DOUBLE,
   stack_moisture_percent_std DOUBLE,
   mass_feed_vessel_std DOUBLE,
+  mass_feed_vessel_stepped_std DOUBLE,
   value_feed_auger_pv_std DOUBLE,
   pp_H2O_std DOUBLE,
   pp_CO2_std DOUBLE,
@@ -971,6 +983,7 @@ CREATE TABLE integral_tbl
   delta_H_std DOUBLE,
   dH_max_std DOUBLE,
   exit_gas_flowrate_std DOUBLE,
+  t_min_std DOUBLE,
   analysis_ts DATETIME,
   N_total INT,
   N_MS INT,
@@ -1155,6 +1168,7 @@ CREATE TABLE analysis_config_tbl
   INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('C3H8_MS', 1);
   INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('C3H6_MS', 1);
   INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('C4H8_MS', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('C4H10_MS', 1);
   INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('CH3CHCH3CH3_MS', 1);
   INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('C6H6_MS', 1);
   INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('C7H8_MS', 1);
@@ -1175,6 +1189,7 @@ CREATE TABLE analysis_config_tbl
   INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('C3H8_normalized', 1);
   INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('C3H6_normalized', 1);
   INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('C4H8_normalized', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('C4H10_normalized', 1);
   INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('CH3CHCH3CH3_normalized', 1);
   INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('C6H6_normalized', 1);
   INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('C7H8_normalized', 1);
@@ -1195,6 +1210,7 @@ CREATE TABLE analysis_config_tbl
   INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('C3H8_inlet', 1);
   INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('C3H6_inlet', 1);
   INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('C4H8_inlet', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('C4H10_inlet', 1);
   INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('CH3CHCH3CH3_inlet', 1);
   INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('C6H6_inlet', 1);
   INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('C7H8_inlet', 1);
@@ -1215,6 +1231,7 @@ CREATE TABLE analysis_config_tbl
   INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('C3H8_outlet', 1);
   INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('C3H6_outlet', 1);
   INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('C4H8_outlet', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('C4H10_outlet', 1);
   INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('CH3CHCH3CH3_outlet', 1);
   INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('C6H6_outlet', 1);
   INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('C7H8_outlet', 1);
@@ -1246,7 +1263,10 @@ CREATE TABLE analysis_config_tbl
   INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('dH_max', 1);
   INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('exit_gas_flowrate', 1);
   INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('biomass_flowrate', 1);
-
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('biomass_flowrate_hopper_massloss', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('biomass_flowrate_hopper_massloss_s', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('mass_feed_vessel_stepped', 1);
+  INSERT INTO analysis_config_tbl (avg_std_cols, active) VALUES ('t_min',1);
 -- ---------------------- --
 -- CREATE REPORT PLOT TBL --
 -- ---------------------- --
@@ -1286,6 +1306,7 @@ CREATE VIEW run_plan_view AS
          S.Ar_tracer,
          S.superheater_purge,
          S.tube_diameter,
+         B.sample_name,
          B.moisture,
          B.w_c,
          B.w_n,
