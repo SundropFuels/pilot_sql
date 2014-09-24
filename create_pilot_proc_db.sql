@@ -58,6 +58,8 @@ CREATE TABLE run_info_tbl
     operator    VARCHAR(45),
     feeder_slope DOUBLE,
     feeder_intercept DOUBLE,
+    superheater_gas_type CHAR(25),
+    quality CHAR(25),
     FOREIGN KEY (setpoint_id)
         REFERENCES setpoint_tbl (setpoint_id)
         ON UPDATE NO ACTION
